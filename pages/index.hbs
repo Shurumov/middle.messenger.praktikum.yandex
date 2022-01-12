@@ -1,0 +1,31 @@
+---
+bodyclass: index
+language: en
+meta:
+author: Author Name
+description: Some meta description
+keywords: Some, Meta, Keywords
+robots: index, follow
+stylesheets:
+- ./index.scss
+- ../styles/default.scss
+
+title: Index | Parcel Bundler With Handlebars
+---
+
+{{#extend "base"}}
+  {{#content "main"}}
+    <main>
+      <h1>Welcome from index.hbs</h1>
+      <a href="./auth/index.hbs">auth</a>
+      <br>
+      <a href="./404/index.hbs">404</a>
+      <br>
+      <a href="./500/index.hbs">500</a>
+      <br>
+      <a href="./chat/index.hbs">Чаты</a>
+      <br>
+      <a href="./profile/index.hbs">Профиль</a>
+    </main>
+  {{/content}}
+{{/extend}}

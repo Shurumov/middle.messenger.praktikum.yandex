@@ -1,0 +1,83 @@
+@import "styles/variables";
+.profile {
+  padding-top: 60px;
+  height: 100vh;
+  width: 510px;
+  &__image {
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    width: 130px;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $light-gray;
+    border-radius: 50%;
+
+    &:hover {
+      .profile__change {
+        display: flex;
+      }
+    }
+  }
+
+  &__change {
+    display: none;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: $white;
+    font-size: 13px;
+    line-height: 14px;
+    background-color: #000;
+    opacity: .5;
+    cursor: pointer;
+  }
+
+  &__name {
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+.text-list {
+  &__item {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $light-gray;
+    &:last-of-type {
+      border-bottom: none;
+    }
+    &-key {
+      color: $black;
+    }
+    &-value {
+      color: $gray;
+    }
+    &_exit {
+      a {
+        color: $red;
+      }
+    }
+  }
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 64px;
+  height: 100%;
+  background-color: #FBFBFB;
+  cursor: pointer;
+  &__icon {
+
+  }
+}

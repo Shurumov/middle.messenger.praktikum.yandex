@@ -1,0 +1,27 @@
+---
+stylesheets:
+- ../../styles/default.scss
+- ../../styles/none-auth-page.scss
+title: Sign In
+bodyclass: flex
+
+---
+
+{{#extend "base"}}
+  {{#content "main"}}
+    <div class="non-auth-container">
+      <h3 class="non-auth-container__title">Регистрация</h3>
+      <form>
+        <input class="text-input m-t-14" name="email" placeholder="Почта" type="email">
+        <input class="text-input m-t-6" name="login" placeholder="Логин" type="text">
+        <input class="text-input m-t-6" name="first_name" placeholder="Имя" type="text">
+        <input class="text-input m-t-6" name="second_name" placeholder="Фамилия" type="text">
+        <input class="text-input m-t-6" name="phone" placeholder="Телефон" type="tel">
+        <input class="text-input m-t-6" name="password" placeholder="Пароль" type="password">
+        <input class="text-input m-t-6" name="password_confirm" placeholder="Пароль (ещё раз)" type="password">
+        <button type="submit" class="button non-auth-container__button">Зарегистрироваться</button>
+      </form>
+      <a class="non-auth-container__link m-t-6" href="../auth/index.hbs">Войти</a>
+    </div>
+  {{/content}}
+{{/extend}}

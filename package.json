@@ -1,0 +1,31 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "parcel build pages/index.hbs --no-cache --public-url ./",
+    "start": "parcel --port=3000 pages/index.hbs",
+    "serve": "serve -s dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shurumov/messenger.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shurumov/messenger/issues"
+  },
+  "homepage": "https://github.com/Shurumov/messenger#readme",
+  "devDependencies": {
+    "@anikin/parcel-transformer-handlebars": "^1.0.9",
+    "express": "^4.17.2",
+    "parcel-plugin-handlebars": "^0.4.4"
+  },
+  "dependencies": {
+    "node-sass": "^7.0.1",
+    "serve": "^13.0.2"
+  }
+}

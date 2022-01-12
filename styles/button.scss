@@ -1,0 +1,10 @@
+@import "variables";
+
+.button {
+  width: 100%;
+  background-color: $blue;
+  color: $white;
+  padding: 12px;
+  text-align: center;
+  border: none;
+}
