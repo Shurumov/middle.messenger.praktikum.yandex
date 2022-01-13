@@ -1,7 +1,7 @@
 ---
 stylesheets:
 - ../../styles/default.scss
-- ../../styles/none-auth-page.scss
+- ../../styles/container.scss
 title: Auth
 bodyclass: flex
 
@@ -9,14 +9,14 @@ bodyclass: flex
 
 {{#extend "base"}}
   {{#content "main"}}
-    <div class="non-auth-container">
-      <h3 class="non-auth-container__title">Вход</h3>
+    <div class="container">
+      <h3 class="container__title">Вход</h3>
       <form>
         <input class="text-input m-t-14" name="login" placeholder="Логин" type="text">
         <input class="text-input m-t-8" name="password" placeholder="Пароль" type="password">
-        <button class="button non-auth-container__button">Авторизация</button>
+        <button class="button container__button">Авторизация</button>
       </form>
-      <a class="non-auth-container__link m-t-6" href="../sign-in/index.hbs">Нет аккаунта?</a>
+      <a class="container__link m-t-6" href="../sign-in/index.hbs">Нет аккаунта?</a>
     </div>
   {{/content}}
 {{/extend}}
