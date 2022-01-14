@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "parcel build pages/index.hbs --no-cache --public-url ./",
+    "build": "parcel build pages/index.hbs",
     "start": "parcel --port=3000 pages/index.hbs",
     "serve": "npm run build && node ./server.js"
   },
