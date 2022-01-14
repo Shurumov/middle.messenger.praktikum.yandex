@@ -1,31 +1,24 @@
 ---
-bodyclass: index
-language: en
-meta:
-author: Author Name
-description: Some meta description
-keywords: Some, Meta, Keywords
-robots: index, follow
 stylesheets:
-- ./index.scss
 - ../styles/default.scss
+- ../styles/container.scss
+title: Auth
+bodyclass: flex
 
-title: Index | Parcel Bundler With Handlebars
 ---
 
 {{#extend "base"}}
   {{#content "main"}}
-    <main>
-      <h1>Welcome from index.hbs</h1>
-      <a href="./auth/index.hbs">auth</a>
-      <br>
-      <a href="./404/index.hbs">404</a>
-      <br>
-      <a href="./500/index.hbs">500</a>
-      <br>
-      <a href="./chat/index.hbs">Чаты</a>
-      <br>
-      <a href="./profile/index.hbs">Профиль</a>
-    </main>
+    <div class="container">
+      <h3 class="container__title">Вход</h3>
+      <form>
+        <input class="text-input m-t-14" name="login" placeholder="Логин" type="text">
+        <input class="text-input m-t-8" name="password" placeholder="Пароль" type="password">
+<!--        <button class="button container__button">Авторизация</button>-->
+<!--        Времмено добавлена ссылка, чтобы можно было "погулять" по прототипу-->
+        <a href="./profile/index.hbs" class="button container__button">Авторизация</a>
+      </form>
+      <a class="container__link m-t-6" href="sign-in/index.hbs">Нет аккаунта?</a>
+    </div>
   {{/content}}
 {{/extend}}
