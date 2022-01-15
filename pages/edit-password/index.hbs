@@ -1,0 +1,25 @@
+---
+stylesheets:
+- ../../styles/default.scss
+- ../../styles/container.scss
+title: Редактирование пароля
+bodyclass: flex
+
+---
+
+{{#extend "base"}}
+  {{#content "main"}}
+    <div class="container">
+      <h3 class="container__title">Редактирование пароля</h3>
+      <form>
+        <input class="text-input m-t-14" name="oldPassword" placeholder="Старый пароль" type="password">
+        <input class="text-input m-t-6" name="newPassword" placeholder="Новый пароль" type="password">
+        <input class="text-input m-t-6" name="confirmNewPassword" placeholder="Повторите новый пароль" type="password">
+        <!--<button type="submit" class="button container__button">Сохранить</button>-->
+        <!--Времмено добавлена ссылка, чтобы можно было "погулять" по прототипу-->
+        <a href="../profile/index.hbs" class="button container__button">Сохранить</a>
+      </form>
+
+    </div>
+  {{/content}}
+{{/extend}}

@@ -1,0 +1,28 @@
+---
+stylesheets:
+- ../../styles/default.scss
+- ../../styles/container.scss
+title: Редактирование профиля
+bodyclass: flex
+
+---
+
+{{#extend "base"}}
+  {{#content "main"}}
+    <div class="container">
+      <h3 class="container__title">Редактирование профиля</h3>
+      <form>
+        <input class="text-input m-t-14" name="email" placeholder="Почта" type="email">
+        <input class="text-input m-t-6" name="login" placeholder="Логин" type="text">
+        <input class="text-input m-t-6" name="first_name" placeholder="Имя" type="text">
+        <input class="text-input m-t-6" name="second_name" placeholder="Фамилия" type="text">
+        <input class="text-input m-t-6" name="display_name" placeholder="Имя в чате" type="text">
+        <input class="text-input m-t-6" name="phone" placeholder="Телефон" type="tel">
+        <!--<button type="submit" class="button container__button">Сохранить</button>-->
+        <!--Времмено добавлена ссылка, чтобы можно было "погулять" по прототипу-->
+        <a href="../profile/index.hbs" class="button container__button">Сохранить</a>
+      </form>
+
+    </div>
+  {{/content}}
+{{/extend}}
