@@ -1,3 +1,4 @@
+@import "./variables";
 .container {
   display: flex;
   flex-direction: column;
@@ -6,7 +7,7 @@
   min-width: 340px;
   padding: 30px;
   width: min-content;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 0 6px $shadow-container;
   border-radius: 12px;
 
   &__title {
