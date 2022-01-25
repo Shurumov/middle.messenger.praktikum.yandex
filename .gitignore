@@ -6,3 +6,6 @@
 # production
 /dist
 
+#other
+.parcel-cache
+
