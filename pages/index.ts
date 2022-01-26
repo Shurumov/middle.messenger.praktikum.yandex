@@ -1,9 +1,17 @@
 import templateFunction from './index.hbs';
+import { Block } from '../utils/block';
+import { renderDOM } from '../utils/render-dom';
 
-function render() {
-  if(document.querySelector("#root")){
-    document.querySelector('#root').innerHTML = templateFunction({});
+class SignInPage extends Block {
+  constructor() {
+    super();
+  }
+
+  render() {
+    renderDOM("#root", templateFunction({}))
   }
 }
 
-render();
+const pageInstance = new SignInPage();
+
+pageInstance.render();

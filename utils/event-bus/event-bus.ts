@@ -1,5 +1,5 @@
 export class EventBus {
-  listeners?: Record<string, Function[]>;
+  listeners: Record<string, Function[]>;
   constructor() {
     this.listeners = {};
   }
@@ -21,7 +21,9 @@ export class EventBus {
     }
 
     this.listeners[event].forEach(listener => {
-      listener(...args);
+      if(args) {
+        listener(...args);
+      }
     });
   }
 }
