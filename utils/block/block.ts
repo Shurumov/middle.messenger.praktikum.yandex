@@ -1,30 +1,56 @@
 import { EventBus } from '../event-bus';
+import { v4 as makeUUID } from 'uuid';
 
 export class Block {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render"
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render'
   };
 
   _element = null;
   _meta = null;
   props = null;
-  eventBus = null
-  constructor(tagName: string = "div", props: Record<string, any> = {}) {
-    const eventBus = new EventBus();
-    this._meta = {
-      tagName,
-      props
-    };
+  eventBus = null;
+  _id = null;
 
+  constructor(propsAndChildren: Record<string, any> = {}, tagName?: string = 'div',) {
+    const eventBus = new EventBus();
+    const { children, props } = this._getChildren(propsAndChildren);
+    this.children = children;
     this.props = this._makePropsProxy(props);
 
+    if(propsAndChildren.withInternalID) {
+      this._id = makeUUID();
+      this.props = this._makePropsProxy({ ...props, __id: this._id });
+    } else {
+      this.props = this._makePropsProxy(this.props);
+    }
+
+    this._meta = {
+      tagName,
+      props: this.props,
+    };
     this.eventBus = () => eventBus;
 
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
+  }
+
+  _getChildren(propsAndChildren) {
+    const children = {};
+    const props = {};
+
+    Object.entries(propsAndChildren).forEach(([key, value]) => {
+      if (value instanceof Block) {
+        children[key] = value;
+      } else {
+        props[key] = value;
+      }
+    });
+
+    return { children, props };
   }
 
   _registerEvents(eventBus) {
@@ -49,7 +75,8 @@ export class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  componentDidMount(oldProps?: Record<string, any>) {}
+  componentDidMount(oldProps?: Record<string, any>) {
+  }
 
   _componentDidUpdate(oldProps: Record<string, any>, newProps: Record<string, any>) {
     const response = this.componentDidUpdate(oldProps, newProps);
@@ -76,10 +103,11 @@ export class Block {
   }
 
   _render() {
-    this.render()
+    this.render();
   }
 
-  render() {}
+  render() {
+  }
 
   getContent() {
     return this.element;
@@ -93,18 +121,18 @@ export class Block {
     return new Proxy(props, {
       get(target, prop) {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target, prop, value) {
         target[prop] = value;
 
         // Запускаем обновление компоненты
         // Плохой cloneDeep, в след итерации нужно заставлять добавлять cloneDeep им самим
-        self?.eventBus()?.emit(Block.EVENTS.FLOW_CDU, {...target}, target);
+        self?.eventBus()?.emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
         return true;
       },
       deleteProperty() {
-        throw new Error("Нет доступа");
+        throw new Error('Нет доступа');
       }
     });
   }
@@ -115,10 +143,10 @@ export class Block {
   }
 
   show() {
-    this.getContent().style.display = "block";
+    this.getContent().style.display = 'block';
   }
 
   hide() {
-    this.getContent().style.display = "none";
+    this.getContent().style.display = 'none';
   }
 }
