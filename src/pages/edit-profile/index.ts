@@ -8,6 +8,9 @@ import {
   InputValidatorName
 } from '~src/utils/validation/input-validation';
 import './styles.scss';
+import '~src/styles/default.scss'
+import '~src/styles/container.scss'
+
 
 class EditProfilePage extends Block {
   constructor() {

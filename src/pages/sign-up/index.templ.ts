@@ -10,5 +10,5 @@ export const template = `
       <PasswordConfirmInput></PasswordConfirmInput>
     <button type="submit" class="button container__button">Зарегистрироваться</button>
   </form>
-  <a class="container__link m-t-6" href="../index.html">Войти</a>
+  <a class="container__link m-t-6" href="../sign-in/index.html">Войти</a>
 `;

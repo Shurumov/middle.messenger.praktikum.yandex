@@ -1,7 +1,8 @@
 import { template } from './index.templ';
 import * as Handlebars from "handlebars";
 import Block from '~src/utils/block/block';
-
+import '~src/styles/default.scss'
+import '~src/styles/error-page.scss'
 class ErrorPage extends Block {
   constructor() {
     super({},'main', ['error-page']);

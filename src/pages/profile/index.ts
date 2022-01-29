@@ -2,6 +2,8 @@ import { template } from './index.templ';
 import * as Handlebars from 'handlebars';
 import Block from '~src/utils/block/block';
 import './profile.scss';
+import '~src/styles/default.scss'
+
 class ProfilePage extends Block {
   constructor() {
     super({

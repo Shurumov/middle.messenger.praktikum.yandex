@@ -6,6 +6,9 @@ import { FormField } from '~src/components/form-field/form-field';
 import { InputType } from '~src/components/form-field/form-field.model';
 import { InputValidatorName } from '~src/utils/validation/input-validation';
 import './styles.scss'
+import '~src/styles/default.scss'
+import '~src/styles/container.scss'
+
 class EditPasswordPage extends Block {
   constructor() {
     super({

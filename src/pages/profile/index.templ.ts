@@ -27,7 +27,7 @@ export const template = `
         <a href="../edit-password/index.html">Изменить пароль</a>
       </div>
       <div class="text-list__item text-list__item_exit">
-        <a href="../index.html">Выйти</a>
+        <a href="../sign-in/index.html">Выйти</a>
       </div>
     </div>
 </div>

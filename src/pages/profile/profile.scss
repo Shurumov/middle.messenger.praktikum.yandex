@@ -1,8 +1,26 @@
 @import "../../styles/variables";
+
 .profile {
   padding-top: 60px;
   height: 100vh;
   width: 510px;
+
+  &__change {
+    display: none;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: $white;
+    font-size: 13px;
+    line-height: 14px;
+    background-color: #000000;
+    opacity: 0.5;
+    cursor: pointer;
+  }
+
   &__image {
     overflow: hidden;
     position: relative;
@@ -16,26 +34,11 @@
     border-radius: 50%;
 
     &:hover {
+      /* stylelint-disable-next-line */
       .profile__change {
         display: flex;
       }
     }
-  }
-
-  &__change {
-    display: none;
-    text-align: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: $white;
-    font-size: 13px;
-    line-height: 14px;
-    background-color: #000;
-    opacity: .5;
-    cursor: pointer;
   }
 
   &__name {
@@ -52,15 +55,19 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid $light-gray;
+
     &:last-of-type {
       border-bottom: none;
     }
+
     &-key {
       color: $black;
     }
+
     &-value {
       color: $gray;
     }
+
     &_exit {
       a {
         color: $red;

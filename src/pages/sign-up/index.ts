@@ -9,6 +9,9 @@ import {
 import { InputType } from '~src/components/form-field/form-field.model';
 import { setFormValidation } from '~src/utils/validation/form-validation';
 import './style.scss'
+import '~src/styles/default.scss'
+import '~src/styles/container.scss'
+
 
 class SignUpPage extends Block {
   constructor() {
