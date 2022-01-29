@@ -2,7 +2,7 @@ export const template = `
 <div class="profile">
   <div class="profile__image">
     <img src="./placeholder.png" alt="">
-    <div class="profile__change flex">Поменять<br>аватар</div>
+    <div class="profile-change">Поменять<br>аватар</div>
   </div>
   <div class="profile__name m-t-5">
     Алексей
