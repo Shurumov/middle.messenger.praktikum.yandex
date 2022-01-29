@@ -4,6 +4,8 @@
 
 [Netlify](https://cocky-payne-6f46ac.netlify.app)
 
+PR первого спринта https://github.com/Shurumov/middle.messenger.praktikum.yandex/pull/3
+
 сборка проекта `npm run build`
 
 запуск локальной разработки `npm run start`
