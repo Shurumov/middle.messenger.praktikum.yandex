@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "parcel build src/pages/sign-in/index.html",
+    "build": "parcel build src/pages/index.html",
     "start": "parcel --port=3000 src/pages/index.html",
     "serve": "npm run build && node ./server.js",
     "eslint": "node_modules/.bin/eslint .",
