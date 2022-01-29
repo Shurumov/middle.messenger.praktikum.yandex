@@ -1,0 +1,43 @@
+@import "src/styles/variables";
+
+.form-field {
+  height: 52px;
+  width: 100%;
+  box-sizing: border-box;
+
+  &__input {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 8px;
+    width: 100%;
+    border-width: 0 0 1px;
+    border-bottom: 1px solid $blue;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.invalid {
+      border-color: $red;
+
+      &:focus {
+        border-color: 2px solid $blue;
+      }
+    }
+  }
+
+  &.file-input {
+    .form-field-label {
+      top: 0;
+    }
+
+    input {
+      border-bottom: 0;
+    }
+  }
+
+  &__error {
+    color: $red;
+    font-size: 12px;
+  }
+}
