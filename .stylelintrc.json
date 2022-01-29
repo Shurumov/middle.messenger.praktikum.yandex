@@ -3,6 +3,7 @@
   "plugins": [
     "stylelint-scss"
   ],
+
   "rules": {
     "color-hex-length": "long",
     "color-hex-case": "upper",
@@ -18,6 +19,7 @@
   },
   "ignoreFiles": [
     "build/*",
-    "dist/*"
+    "dist/**/*.css",
+    "dist/*.css"
   ]
 }
