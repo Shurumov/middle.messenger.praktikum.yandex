@@ -1,11 +1,11 @@
 import { template } from './index.templ';
 import * as Handlebars from "handlebars";
-import Block from '~src/utils/block/block';
+import Block from '/src/utils/block/block';
 import './styles.scss'
-import { InputValidatorName } from '~src/utils/validation/input-validation';
-import { ChatInput } from '~src/components/chat-input/chat-input';
-import { setFormValidation } from '~src/utils/validation/form-validation';
-import '~src/styles/default.scss'
+import { InputValidatorName } from '/src/utils/validation/input-validation';
+import { ChatInput } from '/src/components/chat-input/chat-input';
+import { setFormValidation } from '/src/utils/validation/form-validation';
+import '/src/styles/default.scss'
 
 class ChatPage extends Block {
   constructor() {

@@ -3,7 +3,6 @@
   "plugins": [
     "stylelint-scss"
   ],
-
   "rules": {
     "color-hex-length": "long",
     "color-hex-case": "upper",

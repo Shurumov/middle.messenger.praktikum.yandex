@@ -1,15 +1,15 @@
 import { template } from './index.templ';
 import * as Handlebars from 'handlebars';
-import Block from '~src/utils/block/block';
-import { setFormValidation } from '~src/utils/validation/form-validation';
-import { FormField } from '~src/components/form-field/form-field';
+import Block from '/src/utils/block/block';
+import { setFormValidation } from '/src/utils/validation/form-validation';
+import { FormField } from '/src/components/form-field/form-field';
 import {
   InputValidationPattern,
   InputValidatorName
-} from '~src/utils/validation/input-validation';
+} from '/src/utils/validation/input-validation';
 import './styles.scss';
-import '~src/styles/default.scss'
-import '~src/styles/container.scss'
+import '/src/styles/default.scss'
+import '/src/styles/container.scss'
 
 
 class EditProfilePage extends Block {

@@ -1,8 +1,11 @@
-import { helpers } from "../helpers/helpers";
-import { InputType } from "../../components/form-field/form-field.model";
-import { InputValidatorOptions, Validators } from "../../components/form-field/input-validator.model";
+import { helpers } from '/src/utils/helpers/helpers';
+import { InputType } from '/src/components/form-field/form-field.model';
+import {
+  InputValidatorOptions,
+  Validators
+} from '/src/components/form-field/input-validator.model';
 
-const INVALID_CLASS = "invalid";
+const INVALID_CLASS = 'invalid';
 
 export const InputValidationPattern = {
   email: /.+@.+\..+/i,
@@ -10,10 +13,10 @@ export const InputValidationPattern = {
 };
 
 export enum InputValidatorName {
-  required = "required",
-  pattern = "pattern",
-  minLength = "minLength",
-  maxLength = "maxLength",
+  required = 'required',
+  pattern = 'pattern',
+  minLength = 'minLength',
+  maxLength = 'maxLength',
 }
 
 export function getInputValidatorMethod(
@@ -35,106 +38,106 @@ export function getInputValidatorMethod(
 const inputValidators: Validators = {
   required:
     () =>
-    (element: HTMLInputElement): boolean => {
-      if (element) {
-        const value = element.value;
-        const classList = element.classList;
-        const nextElem = element.nextElementSibling;
+      (element: HTMLInputElement): boolean => {
+        if (element) {
+          const value = element.value;
+          const classList = element.classList;
+          const nextElem = element.nextElementSibling;
 
-        switch (element.type) {
-          case InputType.password:
-          case InputType.text:
-            if (!value && !classList.contains(INVALID_CLASS)) {
-              classList.add(INVALID_CLASS);
-              if (nextElem) {
-                nextElem.textContent = "Поле не должно быть пустым";
+          switch (element.type) {
+            case InputType.Password:
+            case InputType.Text:
+              if (!value && !classList.contains(INVALID_CLASS)) {
+                classList.add(INVALID_CLASS);
+                if (nextElem) {
+                  nextElem.textContent = 'Поле не должно быть пустым';
+                }
+              } else if (!!value && classList.contains(INVALID_CLASS)) {
+                classList.remove(INVALID_CLASS);
+                if (nextElem) {
+                  nextElem.textContent = '';
+                }
               }
-            } else if (!!value && classList.contains(INVALID_CLASS)) {
-              classList.remove(INVALID_CLASS);
-              if (nextElem) {
-                nextElem.textContent = "";
-              }
-            }
-            break;
+              break;
+          }
+
+          return !classList.contains(INVALID_CLASS);
         }
 
-        return !classList.contains(INVALID_CLASS);
-      }
-
-      return false;
-    },
+        return false;
+      },
 
   pattern:
     (pattern: string) =>
-    (element: HTMLInputElement): boolean => {
-      if (element) {
-        const value = element.value;
-        const classList = element.classList;
-        const nextElem = element.nextElementSibling;
+      (element: HTMLInputElement): boolean => {
+        if (element) {
+          const value = element.value;
+          const classList = element.classList;
+          const nextElem = element.nextElementSibling;
 
-        if (!value.match(pattern) && !classList.contains(INVALID_CLASS)) {
-          classList.add(INVALID_CLASS);
-          if (nextElem) {
-            nextElem.textContent = "Неверное значение поля";
+          if (!value.match(pattern) && !classList.contains(INVALID_CLASS)) {
+            classList.add(INVALID_CLASS);
+            if (nextElem) {
+              nextElem.textContent = 'Неверное значение поля';
+            }
+          } else if (!!value.match(pattern) && classList.contains(INVALID_CLASS)) {
+            classList.remove(INVALID_CLASS);
+            if (nextElem) {
+              nextElem.textContent = '';
+            }
           }
-        } else if (!!value.match(pattern) && classList.contains(INVALID_CLASS)) {
-          classList.remove(INVALID_CLASS);
-          if (nextElem) {
-            nextElem.textContent = "";
-          }
+
+          return !classList.contains(INVALID_CLASS);
         }
 
-        return !classList.contains(INVALID_CLASS);
-      }
-
-      return false;
-    },
+        return false;
+      },
 
   minLength:
     (minLength: number) =>
-    (element: HTMLInputElement): boolean => {
-      if (element) {
-        const value = element.value;
-        const classList = element.classList;
-        const nextElem = element.nextElementSibling;
+      (element: HTMLInputElement): boolean => {
+        if (element) {
+          const value = element.value;
+          const classList = element.classList;
+          const nextElem = element.nextElementSibling;
 
-        if ((!value || value.length < minLength) && !classList.contains(INVALID_CLASS)) {
-          classList.add(INVALID_CLASS);
-          if (nextElem) {
-            nextElem.textContent = `Должно быть хотя бы ${minLength} символов`;
+          if ((!value || value.length < minLength) && !classList.contains(INVALID_CLASS)) {
+            classList.add(INVALID_CLASS);
+            if (nextElem) {
+              nextElem.textContent = `Должно быть хотя бы ${minLength} символов`;
+            }
+          } else if (!!value && value.length >= minLength && classList.contains(INVALID_CLASS)) {
+            classList.remove(INVALID_CLASS);
+            if (nextElem) {
+              nextElem.textContent = '';
+            }
           }
-        } else if (!!value && value.length >= minLength && classList.contains(INVALID_CLASS)) {
-          classList.remove(INVALID_CLASS);
-          if (nextElem) {
-            nextElem.textContent = "";
-          }
+          return !classList.contains(INVALID_CLASS);
         }
-        return !classList.contains(INVALID_CLASS);
-      }
-      return false;
-    },
+        return false;
+      },
 
   maxLength:
     (maxLength: number) =>
-    (element: HTMLInputElement): boolean => {
-      if (element) {
-        const value = element.value;
-        const classList = element.classList;
-        const nextElem = element.nextElementSibling;
+      (element: HTMLInputElement): boolean => {
+        if (element) {
+          const value = element.value;
+          const classList = element.classList;
+          const nextElem = element.nextElementSibling;
 
-        if ((!value || value.length > maxLength) && !classList.contains(INVALID_CLASS)) {
-          classList.add(INVALID_CLASS);
-          if (nextElem) {
-            nextElem.textContent = `Должно быть не меньше ${maxLength} символов`;
+          if ((!value || value.length > maxLength) && !classList.contains(INVALID_CLASS)) {
+            classList.add(INVALID_CLASS);
+            if (nextElem) {
+              nextElem.textContent = `Должно быть не меньше ${maxLength} символов`;
+            }
+          } else if (!!value && value.length <= maxLength && classList.contains(INVALID_CLASS)) {
+            classList.remove(INVALID_CLASS);
+            if (nextElem) {
+              nextElem.textContent = '';
+            }
           }
-        } else if (!!value && value.length <= maxLength && classList.contains(INVALID_CLASS)) {
-          classList.remove(INVALID_CLASS);
-          if (nextElem) {
-            nextElem.textContent = "";
-          }
+          return !classList.contains(INVALID_CLASS);
         }
-        return !classList.contains(INVALID_CLASS);
-      }
-      return false;
-    },
+        return false;
+      },
 };

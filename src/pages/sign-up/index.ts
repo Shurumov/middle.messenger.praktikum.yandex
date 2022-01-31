@@ -1,16 +1,16 @@
 import { template } from './index.templ';
 import * as Handlebars from 'handlebars';
-import Block from '~src/utils/block/block';
-import { FormField } from '~src/components/form-field/form-field';
+import Block from '/src/utils/block/block';
+import { FormField } from '/src/components/form-field/form-field';
 import {
   InputValidatorName,
   InputValidationPattern
-} from '~src/utils/validation/input-validation';
-import { InputType } from '~src/components/form-field/form-field.model';
-import { setFormValidation } from '~src/utils/validation/form-validation';
+} from '/src/utils/validation/input-validation';
+import { InputType } from '/src/components/form-field/form-field.model';
+import { setFormValidation } from '/src/utils/validation/form-validation';
 import './style.scss'
-import '~src/styles/default.scss'
-import '~src/styles/container.scss'
+import '/src/styles/default.scss'
+import '/src/styles/container.scss'
 
 
 class SignUpPage extends Block {
@@ -67,7 +67,7 @@ class SignUpPage extends Block {
           validators: {
             [InputValidatorName.required]: null,
           },
-          type: InputType.password,
+          type: InputType.Password,
         }),
         PasswordConfirmInput: new FormField({
           label: 'Новый пароль ещё раз',
@@ -76,7 +76,7 @@ class SignUpPage extends Block {
           validators: {
             [InputValidatorName.required]: null,
           },
-          type: InputType.password,
+          type: InputType.Password,
         }),
       },
       formFields: [

@@ -1,6 +1,4 @@
-export type InputValidatorOptions = {
-  [key: string]: string | number | null | RegExp;
-};
+export type InputValidatorOptions = Record<string, string | number | null | RegExp>;
 
 export type CustomInputEvent = FocusEvent & { target: HTMLInputElement };
 

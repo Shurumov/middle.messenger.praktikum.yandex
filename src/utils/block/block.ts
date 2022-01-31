@@ -1,7 +1,7 @@
-import { EventBus } from '~src/utils/event-bus';
-export type CustomElementEvents = { [key: string]: (args: any) => void };
-
-export default abstract class Block {
+import { EventBus } from '/src/utils/event-bus';
+import { Props } from '/src/utils/block/props.model';
+import { CustomElementEvents } from './props.model';
+export default abstract class Block<BlockProps extends Props = Props> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -10,18 +10,16 @@ export default abstract class Block {
   };
 
   readonly eventBus: EventBus = new EventBus();
-  props: Record<string, any>;
+  props: BlockProps;
 
   _element: HTMLElement;
   _meta: any = null;
 
   listeners: CustomElementEvents = {};
 
-  childrenListeners: {
-    [key: string]: CustomElementEvents;
-  } = {};
+  childrenListeners: Record<string, CustomElementEvents> = {};
 
-  constructor(props: any, tagName = "div", classNames: string[] = []) {
+  constructor(props: BlockProps, tagName = "div", classNames: string[] = []) {
     this._meta = {
       tagName,
       props,
@@ -71,7 +69,7 @@ export default abstract class Block {
     return _oldProps !== _newProps;
   }
 
-  setProps = (nextProps: any) => {
+  setProps = (nextProps: BlockProps) => {
     if (!nextProps) {
       return;
     }
@@ -171,8 +169,8 @@ export default abstract class Block {
     return this.element;
   }
 
-  private _makePropsProxy(props: any) {
-    const propsProxy = new Proxy(props as unknown as any, {
+  private _makePropsProxy(props: BlockProps) {
+    const propsProxy = new Proxy(props, {
       get: (target, prop: string) => {
         const value = target[prop];
         return typeof value === "function" ? value.bind(this) : value;

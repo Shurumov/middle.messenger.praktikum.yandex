@@ -1,13 +1,13 @@
 import { template } from './index.templ';
 import * as Handlebars from "handlebars";
-import Block from '~src/utils/block/block';
-import { setFormValidation } from '~src/utils/validation/form-validation';
-import { FormField } from '~src/components/form-field/form-field';
-import { InputType } from '~src/components/form-field/form-field.model';
-import { InputValidatorName } from '~src/utils/validation/input-validation';
+import Block from '/src/utils/block/block';
+import { setFormValidation } from '/src/utils/validation/form-validation';
+import { FormField } from '/src/components/form-field/form-field';
+import { InputType } from '/src/components/form-field/form-field.model';
+import { InputValidatorName } from '/src/utils/validation/input-validation';
 import './styles.scss'
-import '~src/styles/default.scss'
-import '~src/styles/container.scss'
+import '/src/styles/default.scss'
+import '/src/styles/container.scss'
 
 class EditPasswordPage extends Block {
   constructor() {
@@ -18,7 +18,7 @@ class EditPasswordPage extends Block {
           placeholder: "Старый пароль",
           name: "oldPassword",
           class: ['m-t-14'],
-          type: InputType.password,
+          type: InputType.Password,
           validators: {
             [InputValidatorName.required]: null,
           },
@@ -28,7 +28,7 @@ class EditPasswordPage extends Block {
           placeholder: "Новый пароль",
           name: "newPassword",
 
-          type: InputType.password,
+          type: InputType.Password,
           validators: {
             [InputValidatorName.required]: null,
           },
@@ -38,7 +38,7 @@ class EditPasswordPage extends Block {
           placeholder: "Новый пароль ещё раз",
           name: "confirmNewPassword",
 
-          type: InputType.password,
+          type: InputType.Password,
           validators: {
             [InputValidatorName.required]: null,
           },

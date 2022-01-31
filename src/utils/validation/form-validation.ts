@@ -1,6 +1,6 @@
-import { FormField } from '~src/components/form-field/form-field';
-import { CustomElementEvents } from '~src/utils/block/block';
-import { CustomInputEvent } from '~src/components/form-field/input-validator.model';
+import { FormField } from '/src/components/form-field/form-field';
+import { CustomElementEvents } from '/src/utils/block/block';
+import { CustomInputEvent } from '/src/components/form-field/input-validator.model';
 
 export function setFormValidation(): CustomElementEvents {
   return {
@@ -26,8 +26,8 @@ export function setFormValidation(): CustomElementEvents {
 
       if (validity) {
         let formValue = Object.values(inputs).reduce(
-          (acc: { [key: string]: string | number }, input: HTMLInputElement) => {
-            acc[input.name] = input.value;
+          (acc: Record<string, string | number>, { name, value }: HTMLInputElement) => {
+            acc[name] = value;
             return acc;
           },
           {}

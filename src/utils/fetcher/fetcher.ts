@@ -25,52 +25,47 @@ type OptionsRequest = {
   data?: Document | BodyInit | null;
 }
 
-type OptionsMethod = Omit<OptionsRequest, "timeout">
+type OptionsMethod = Omit<OptionsRequest, 'timeout'>
 
 class HTTPTransport {
-  get = (url, options) => {
+  get = (url: string, options: OptionsRequest) => {
     return this.request(url, {
       ...options,
       method: METHODS.GET
     }, options.timeout);
   };
 
-  post = (url, options ) => {
+  post = (url: string, options: OptionsRequest) => {
     return this.request(url, {
       ...options,
       method: METHODS.POST
     }, options.timeout);
   };
 
-  put = (url, options ) => {
+  put = (url: string, options: OptionsRequest) => {
     return this.request(url, {
       ...options,
       method: METHODS.PUT
     }, options.timeout);
   };
 
-  delete = (url, options ) => {
+  delete = (url: string, options: OptionsRequest) => {
     return this.request(url, {
       ...options,
       method: METHODS.DELETE
     }, options.timeout);
   };
 
-  request = (url: string, options: OptionsMethod, timeout = 5000) => {
+  private request = (url: string, options: OptionsMethod, timeout = 5000) => {
     const { headers = {}, method, data } = options;
 
     return new Promise(function(resolve, reject) {
-      if (!method) {
-        reject('No method');
-        return;
-      }
-
       const xhr = new XMLHttpRequest();
       const isGet = method === METHODS.GET;
 
       xhr.open(
         method,
-        isGet && !!data
+        isGet && Boolean(data)
           ? `${url}${queryStringify(data)}`
           : url,
       );
@@ -89,7 +84,7 @@ class HTTPTransport {
       xhr.timeout = timeout;
       xhr.ontimeout = reject;
 
-      if (isGet || !data) {
+      if (isGet) {
         xhr.send();
       } else {
         xhr.send(data);

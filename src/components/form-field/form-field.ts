@@ -1,22 +1,22 @@
 import * as Handlebars from 'handlebars';
 
-import { FormFieldProps } from '~src/components/form-field/form-field.model';
+import { FormFieldProps } from '/src/components/form-field/form-field.model';
 import { formFieldTmpl } from './form-field.tmpl';
-import { Props } from '~src/utils/block/props.model';
-import Block from '../../utils/block/block';
+import Block from '/src/utils/block/block';
 import './form-field.scss';
-import { helpers } from '~src/utils/helpers';
-import { getInputValidatorMethod } from '~src/utils/validation/input-validation';
+import { helpers } from '/src/utils/helpers';
+import { getInputValidatorMethod } from '/src/utils/validation/input-validation';
 
 export class FormField extends Block {
-  constructor(props: FormFieldProps & Props) {
+  constructor(props: FormFieldProps) {
     if (props.validators && !helpers.isEmpty(props.validators)) {
       props.events = props.events ?? {};
       const validationMethod = getInputValidatorMethod(props.validators);
+      const handleEvent = (event: FocusEvent) => validationMethod(event.target);
       props.events.input = {
-        ...(props.events.input ?? {}),
-        focus: (event: FocusEvent) => validationMethod(event.target),
-        blur: (event: FocusEvent) => validationMethod(event.target),
+        ...props.events.input,
+        focus: handleEvent,
+        blur: handleEvent,
       };
     }
 
