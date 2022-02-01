@@ -1,0 +1,29 @@
+@import "variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  min-width: 340px;
+  padding: 30px;
+  width: min-content;
+  box-shadow: 0 0 6px $shadow-container;
+  border-radius: 12px;
+
+  &__title {
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  &__button {
+    margin-top: 168px;
+    border-radius: 8px;
+  }
+
+  &__link {
+    display: inline-block;
+    text-align: center;
+  }
+}

@@ -1,0 +1,30 @@
+@import "src/styles/variables";
+
+.chat-message {
+  width: 100%;
+  box-sizing: border-box;
+
+  &__input {
+    width: 100%;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 12px;
+    background-color: $bright-gray;
+    border: 1px solid $bright-gray;
+    outline: none;
+    border-radius: 17px;
+    margin-right: 10px;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.invalid {
+      border: 1px solid $red;
+
+      &:focus {
+        border-color: 2px solid $blue;
+      }
+    }
+  }
+}
