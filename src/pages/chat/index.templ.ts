@@ -1,6 +1,6 @@
 export const template = `
   <div class="chat-list">
-    <a href="/profile/index.html" class="chat-list__profile">
+    <a href="/profile" class="chat-list__profile">
       Профиль
     </a>
     <input placeholder="Поиск" class="chat-list__search"/>

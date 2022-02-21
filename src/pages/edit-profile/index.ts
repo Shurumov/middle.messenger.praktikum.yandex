@@ -12,7 +12,7 @@ import '/src/styles/default.scss'
 import '/src/styles/container.scss'
 
 
-class EditProfilePage extends Block {
+export class EditProfilePage extends Block {
   constructor() {
     super({
       children: {
@@ -84,7 +84,3 @@ class EditProfilePage extends Block {
     return Handlebars.compile(template)(this.props);
   }
 }
-
-const page = new EditProfilePage();
-const root = document.getElementById('root');
-root?.appendChild(page.getContent());

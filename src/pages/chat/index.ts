@@ -7,7 +7,7 @@ import { ChatInput } from '/src/components/chat-input/chat-input';
 import { setFormValidation } from '/src/utils/validation/form-validation';
 import '/src/styles/default.scss'
 
-class ChatPage extends Block {
+export class ChatPage extends Block {
   constructor() {
     super({
       children: {
@@ -29,7 +29,3 @@ class ChatPage extends Block {
     return Handlebars.compile(template)(this.props);
   }
 }
-
-const page = new ChatPage();
-const root = document.getElementById("root");
-root?.appendChild(page.getContent());

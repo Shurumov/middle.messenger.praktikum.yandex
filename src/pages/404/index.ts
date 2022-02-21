@@ -3,7 +3,8 @@ import * as Handlebars from "handlebars";
 import Block from '/src/utils/block/block';
 import '/src/styles/default.scss'
 import '/src/styles/error-page.scss'
-class ErrorPage extends Block {
+
+export class ErrorPage extends Block {
   constructor() {
     super({
       title: '404',
@@ -14,7 +15,3 @@ class ErrorPage extends Block {
     return Handlebars.compile(template)(this.props);
   }
 }
-
-const page = new ErrorPage();
-const root = document.getElementById("root");
-root?.appendChild(page.getContent());

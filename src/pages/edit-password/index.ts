@@ -9,7 +9,7 @@ import './styles.scss'
 import '/src/styles/default.scss'
 import '/src/styles/container.scss'
 
-class EditPasswordPage extends Block {
+export class EditPasswordPage extends Block {
   constructor() {
     super({
       children: {
@@ -52,7 +52,3 @@ class EditPasswordPage extends Block {
     return Handlebars.compile(template)(this.props);
   }
 }
-
-const page = new EditPasswordPage();
-const root = document.getElementById("root");
-root?.appendChild(page.getContent());

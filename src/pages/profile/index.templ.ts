@@ -21,13 +21,13 @@ export const template = `
   </div>
   <div class="text-list m-t-10">
       <div class="text-list__item">
-        <a href="../edit-profile/index.html">Изменить данные</a>
+        <a href="/edit-profile">Изменить данные</a>
       </div>
       <div class="text-list__item">
-        <a href="../edit-password/index.html">Изменить пароль</a>
+        <a href="/edit-password">Изменить пароль</a>
       </div>
       <div class="text-list__item text-list__item_exit">
-        <a href="../sign-in/index.html">Выйти</a>
+        <a href="/sign-in">Выйти</a>
       </div>
     </div>
 </div>

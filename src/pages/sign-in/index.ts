@@ -8,7 +8,7 @@ import { setFormValidation } from '/src/utils/validation/form-validation';
 import './styles.scss';
 import '/src/styles/default.scss'
 import '/src/styles/container.scss'
-class SignInPage extends Block {
+export class SignInPage extends Block {
   constructor() {
     super({
       children: {
@@ -41,8 +41,3 @@ class SignInPage extends Block {
     return Handlebars.compile(template)(this.props);
   }
 }
-
-const page = new SignInPage();
-
-const root = document.getElementById("root");
-root?.appendChild(page.getContent());

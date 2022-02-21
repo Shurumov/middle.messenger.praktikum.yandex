@@ -6,6 +6,6 @@ export const template = `
       <PasswordInput></PasswordInput>
       <button class="button container__button">Авторизация</button>
     </form>
-    <a class="container__link m-t-6" href="/sign-up/index.html">Нет аккаунта?</a>
+    <a class="container__link m-t-6" href="/sign-up">Нет аккаунта?</a>
   </div>
 `

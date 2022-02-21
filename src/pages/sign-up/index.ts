@@ -13,7 +13,7 @@ import '/src/styles/default.scss'
 import '/src/styles/container.scss'
 
 
-class SignUpPage extends Block {
+export class SignUpPage extends Block {
   constructor() {
     super({
       children: {
@@ -96,7 +96,3 @@ class SignUpPage extends Block {
     return Handlebars.compile(template)(this.props);
   }
 }
-
-const page = new SignUpPage();
-const root = document.getElementById('root');
-root?.appendChild(page.getContent());
