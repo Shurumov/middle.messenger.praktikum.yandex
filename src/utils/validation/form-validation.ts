@@ -1,5 +1,5 @@
 import { FormField } from '/src/components/form-field/form-field';
-import { CustomElementEvents } from '/src/utils/block/block';
+import { CustomElementEvents } from '/src/utils/block';
 import { CustomInputEvent } from '/src/components/form-field/input-validator.model';
 
 export function setFormValidation(): CustomElementEvents {

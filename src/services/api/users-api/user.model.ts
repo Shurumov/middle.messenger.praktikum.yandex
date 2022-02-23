@@ -13,9 +13,7 @@ export interface SignupOptions extends UserBase {
 export interface User extends UserBase {
   avatar: string;
   display_name: string;
-
-  //ToDo:
-  // id: 104751;
+  id: number
 }
 
 export type UserInfo = Omit<User, "id" | "avatar">;

@@ -65,6 +65,7 @@ class HTTPTransport {
     });
   };
 
+
   private request = (url: string, options: OptionsRequest): Promise<any> => {
     let retries = options.retries ?? 0;
     const fullUrl = this.baseUrl + url;
