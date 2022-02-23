@@ -4,7 +4,7 @@ import { ROOT_QUERY } from '/src/utils/router/router';
 function renderBlockInRoot(block: Block): Element {
   const root = document.querySelector(ROOT_QUERY);
   if (root) {
-    root.appendChild(block.getContent());
+    root.appendChild(block.getBlock());
     return root;
   }
   return document.body;
