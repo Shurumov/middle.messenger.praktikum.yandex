@@ -1,6 +1,6 @@
 export const template = `
   <h3 class="container__title">Регистрация</h3>
-  <form class="sign-up-form">
+  <form id="signupForm" class="sign-up-form">
       <EmailInput></EmailInput>
       <LoginInput></LoginInput>
       <FirstNameInput></FirstNameInput>

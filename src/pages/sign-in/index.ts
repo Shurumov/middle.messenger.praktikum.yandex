@@ -1,13 +1,14 @@
 import { template } from './index.templ';
-import * as Handlebars from "handlebars";
+import * as Handlebars from 'handlebars';
 import Block from '/src/utils/block/block';
 import { FormField } from '/src/components/form-field/form-field';
 import { InputValidatorName } from '/src/utils/validation/input-validation';
 import { InputType } from '/src/components/form-field/form-field.model';
 import { setFormValidation } from '/src/utils/validation/form-validation';
 import './styles.scss';
-import '/src/styles/default.scss'
-import '/src/styles/container.scss'
+import '/src/styles/default.scss';
+import '/src/styles/container.scss';
+
 export class SignInPage extends Block {
   constructor() {
     super({
