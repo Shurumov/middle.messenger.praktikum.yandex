@@ -11,10 +11,10 @@ interface Meta<T> {
 
 export default abstract class Block<BlockProps extends Props = Props> {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_RENDER: "flow:render",
-    FLOW_CDU: "flow:component-did-update",
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_RENDER: 'flow:render',
+    FLOW_CDU: 'flow:component-did-update',
   };
 
   readonly eventBus: EventBus = new EventBus();
@@ -31,7 +31,7 @@ export default abstract class Block<BlockProps extends Props = Props> {
 
   childrenListeners: Record<string, CustomElementEvents> = {};
 
-  constructor(props: BlockProps, tagName = "div", classNames: string[] = []) {
+  constructor(props: BlockProps, tagName = 'div', classNames: string[] = []) {
     this._meta = {
       tagName,
       props,
@@ -43,7 +43,7 @@ export default abstract class Block<BlockProps extends Props = Props> {
   }
 
   render(): string {
-    return "";
+    return '';
   }
 
   getBlock(): HTMLElement {
@@ -74,13 +74,13 @@ export default abstract class Block<BlockProps extends Props = Props> {
 
   show(): void {
     if (this._element) {
-      this._element.style.display = "block";
+      this._element.style.display = 'block';
     }
   }
 
   hide(): void {
     if (this._element) {
-      this._element.style.display = "none";
+      this._element.style.display = 'none';
     }
   }
 
@@ -114,7 +114,7 @@ export default abstract class Block<BlockProps extends Props = Props> {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((key) => {
-      if (typeof events[key] === "function") {
+      if (typeof events[key] === 'function') {
         const eventName = key;
         const eventCallback = events[key];
 
@@ -142,7 +142,7 @@ export default abstract class Block<BlockProps extends Props = Props> {
   private addChildrenEvents(): void {
     const { events = {} } = this.props;
     Object.keys(events).forEach((tagName) => {
-      if (typeof events[tagName] !== "function") {
+      if (typeof events[tagName] !== 'function') {
         const specificElementEvents = events[tagName];
         const specificTagCollection = this._element.querySelectorAll(tagName);
 
@@ -150,12 +150,12 @@ export default abstract class Block<BlockProps extends Props = Props> {
           const specificElement = specificTagCollection[0];
 
           Object.keys(specificElementEvents).forEach((eventName: string) => {
-            if (typeof specificElementEvents[eventName] === "function") {
+            if (typeof specificElementEvents[eventName] === 'function') {
               specificElement.addEventListener(
                 eventName,
                 specificElementEvents[eventName].bind(this)
               );
-              if (typeof this.childrenListeners[tagName] === "undefined") {
+              if (typeof this.childrenListeners[tagName] === 'undefined') {
                 this.childrenListeners[tagName] = {};
               }
               this.childrenListeners[tagName][eventName] = specificElementEvents[eventName];
@@ -171,15 +171,17 @@ export default abstract class Block<BlockProps extends Props = Props> {
       this._element.removeEventListener(eventName, eventCallback);
     });
 
-    Object.keys(this.childrenListeners).forEach((tagName) => {
-      const specificTagCollection = this._element.getElementsByTagName(tagName);
-      const specificElement = specificTagCollection[0];
+    if(this.childrenListeners?.length) {
+      Object.keys(this.childrenListeners).forEach((tagName) => {
+        console.log(this);
+        const specificTagCollection = this._element.getElementsByTagName(tagName);
+        const specificElement = specificTagCollection[0];
 
-      Object.entries(this.childrenListeners[tagName]).forEach(([eventName, eventCallback]) => {
-        specificElement.removeEventListener(eventName, eventCallback);
+        Object.entries(this.childrenListeners[tagName]).forEach(([eventName, eventCallback]) => {
+          specificElement.removeEventListener(eventName, eventCallback);
+        });
       });
-    });
-
+    }
     this.listeners = {};
     this.childrenListeners = {};
   }
@@ -189,18 +191,18 @@ export default abstract class Block<BlockProps extends Props = Props> {
     return new Proxy(props as unknown as any, {
       get: (target, prop: string) => {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(this) : value;
+        return typeof value === 'function' ? value.bind(this) : value;
       },
       set: (target, prop: string, value) => {
-        if (prop.indexOf("_") === 0) {
-          throw new Error("Нет прав");
+        if (prop.indexOf('_') === 0) {
+          throw new Error('Нет прав');
         }
         target[prop] = value;
 
         return true;
       },
       deleteProperty: () => {
-        throw new Error("Нет доступа");
+        throw new Error('Нет доступа');
       },
     });
   }
