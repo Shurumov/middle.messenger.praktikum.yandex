@@ -52,7 +52,7 @@ export class SignUpPage extends Block {
         label: 'Почта',
         placeholder: 'Почта',
         name: 'email',
-        class: ['m-t-14'],
+        classNames: ['m-t-14'],
         validators: {
           [InputValidatorName.required]: null,
           [InputValidatorName.pattern]: InputValidationPattern.email,
