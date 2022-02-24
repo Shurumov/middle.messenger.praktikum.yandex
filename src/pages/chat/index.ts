@@ -22,7 +22,7 @@ export class ChatPage extends Block {
         }),
       },
       formFields: ["InputMessage"],
-      events: setFormValidation(),
+      // events: setFormValidation(),
     },'div', ['chat-page']);
   }
   render() {

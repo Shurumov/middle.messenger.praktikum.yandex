@@ -1,1 +1,1 @@
-export { storeManager } from './store-manager'
+export { storeManager, StoreFields } from './store-manager'

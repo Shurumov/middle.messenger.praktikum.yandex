@@ -11,7 +11,7 @@ export const template = `
     {{#each userInfo}}
       <div class="text-list__item">
         <div class="text-list__item-key">
-          {{this.key}}
+          {{this.label}}
         </div>
         <div class="text-list__item-value">
           {{this.value}}

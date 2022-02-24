@@ -54,7 +54,7 @@ export const template = `
         </div>
       </div>
     </div>
-    <form class="chat__form">
+    <form id="sendMessageForm" class="chat__form">
       <InputMessage></InputMessage>
       <button class="chat__submit" type="submit">&#8594;</button>
     </form>
