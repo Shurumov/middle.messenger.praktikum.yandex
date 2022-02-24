@@ -10,6 +10,7 @@ import { storeManager, StoreFields } from '/src/utils/store-manager';
 export class ProfilePage extends Block {
   constructor() {
     authService.checkUserAuthed();
+    super({}, 'div', ['flex']);
     storeManager.subscribe(StoreFields.user, (user) => {
       if (user) {
         userInfoMock.forEach(item => {
@@ -20,7 +21,6 @@ export class ProfilePage extends Block {
         });
       }
     });
-    super({}, 'div', ['flex']);
   }
 
   render() {

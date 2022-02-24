@@ -1,2 +1,2 @@
 export { usersApi } from './users-api'
-export { UserInfo, User } from './user.model'
+export { UserInfo, User, SignupOptions } from './user.model'

@@ -1,7 +1,7 @@
 export const template = `
   <div class="container">
     <h3 class="container__title">Редактирование профиля</h3>
-    <form class="edit-profile-form">
+    <form id="editUserProfileForm" class="edit-profile-form">
       <EmailInput></EmailInput>
       <LoginInput></LoginInput>
       <FirstNameInput></FirstNameInput>

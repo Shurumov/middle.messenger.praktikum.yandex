@@ -29,9 +29,7 @@ export default abstract class Block<BlockProps extends Props = Props> {
     return this._element;
   }
 
-  childrenListeners: {
-    [key: string]: CustomElementEvents;
-  } = {};
+  childrenListeners: Record<string, CustomElementEvents> = {};
 
   constructor(props: BlockProps, tagName = "div", classNames: string[] = []) {
     this._meta = {

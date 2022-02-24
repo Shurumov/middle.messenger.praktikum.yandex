@@ -1,7 +1,7 @@
 import { RoutePath } from '/src';
 import { router } from '/src/utils/router';
 import { StoreFields, storeManager } from '/src/utils/store-manager/store-manager';
-import { SignupOptions } from '/src/services/api/auth-api/user.model';
+import { SignupOptions } from '/src/services/api/users-api';
 import { authApi } from "./api/auth-api";
 
 export enum ERROR_REASONS {
@@ -44,14 +44,14 @@ class AuthService {
     return authService
       .getUser()
       .then(() => {
-        if (location.pathname === RoutePath.SignUp || location.pathname === RoutePath.Login) {
+        if (location.pathname === RoutePath.SignUp || location.pathname === RoutePath.SignIn) {
           router.go(RoutePath.Chat);
         }
 
         return true;
       })
       .catch(() => {
-        if (location.pathname !== RoutePath.SignUp && location.pathname !== RoutePath.Login) {
+        if (location.pathname !== RoutePath.SignUp && location.pathname !== RoutePath.SignIn) {
           router.go(RoutePath.SignIn);
         }
         return false;
