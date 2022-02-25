@@ -4,8 +4,6 @@ import {
 } from '/src/utils/store-manager/store-manager';
 import { Chat, chatsApi } from './api/chat-api';
 import { User } from '/src/services/api/users-api';
-import { usersService } from './users.service';
-
 
 class ChatsService {
   getChats(): Promise<Chat[]> {
@@ -36,13 +34,8 @@ class ChatsService {
         .then(() => {
           const usersInChat = [...storeManager.get(StoreFields.usersInChat), user];
           storeManager.set(StoreFields.usersInChat, usersInChat);
+          storeManager.set(StoreFields.showUsersInChat, false);
         })
-        .then(() => {
-          const query = storeManager.get(StoreFields.searchUsersQuery);
-          if (query) {
-            usersService.searchUsers(query);
-          }
-        });
     }
   }
 

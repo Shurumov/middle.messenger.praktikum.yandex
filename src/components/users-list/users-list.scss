@@ -1,4 +1,5 @@
 .users-list {
+  padding: 0 12px;
   position: absolute;
   top: 0;
   right: 0;
@@ -6,4 +7,13 @@
   bottom: 0;
   background-color: #FBFBFB;
   z-index: 1;
+
+  &__search {
+    margin-top: 10px;
+  }
+
+  &__submit {
+    display: none;
+  }
 }
+
