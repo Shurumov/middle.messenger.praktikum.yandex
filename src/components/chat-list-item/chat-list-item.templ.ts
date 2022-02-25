@@ -1,4 +1,7 @@
 export const template = `
+  {{#if this.isActive}}
+    <div class="chat-list__item-active"></div>
+  {{/if}}
   <div class="chat-list__item-avatar"></div>
   <div class="chat-list__item-center">
     <div class="chat-list__item-name">{{this.title}}</div>

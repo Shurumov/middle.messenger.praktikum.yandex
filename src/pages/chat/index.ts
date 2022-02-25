@@ -28,13 +28,22 @@ export class ChatPage extends Block {
 
     storeManager.subscribe(StoreFields.chats, (chats) => {
       const children = {};
-      chats.forEach((item, index) => {
-        children[`ChatListItem${index}`] = new ChatListItem(item)
+      chats.forEach((chat, index) => {
+        children[`ChatListItem${index}`] = new ChatListItem({
+          ...chat,
+          events: {
+            click: () => {
+              if (storeManager.get(StoreFields.currentChat)?.id !== chat.id) {
+                chatsService.connectToChat(chat);
+              }
+            },
+          }
+        });
       });
       this.setProps({
         ...this.props,
         children,
-        chats: chats.map((item, index) => `ChatListItem${index}`)
+        chats: chats.map((chat, index) => `ChatListItem${index}`)
       });
     });
     chatsService.getChats();

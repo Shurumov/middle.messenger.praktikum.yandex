@@ -8,8 +8,7 @@
     display: flex;
     align-items: flex-start;
 
-    &_active:before {
-      content: '';
+    &-active {
       position: absolute;
       left: -10px;
       top: 0;
