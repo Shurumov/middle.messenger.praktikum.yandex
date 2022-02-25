@@ -1,19 +1,35 @@
 import { template } from './users-list.templ'
 import Block from '/src/utils/block/block';
 import * as Handlebars from 'handlebars';
-import { Props } from '/src/utils/block/props.model';
 import {
   StoreFields,
   storeManager
 } from '/src/utils/store-manager/store-manager';
 import './users-list.scss';
+import { ChatListItem } from '/src/components/chat-list-item';
+import { chatsService } from '/src/services/chats.service';
+import { UserItem } from '/src/components/user-item';
 
 export class UsersList extends Block {
-  constructor(props: Props = {}) {
-    super(props, 'div', ['users-list']);
+  constructor() {
+    super({
+
+    }, 'div', ['users-list']);
     storeManager.subscribe(StoreFields.usersInChat, (users) => {
+      const children = {};
+      users.forEach((user, index) => {
+        children[`UserItem${index}`] = new UserItem({
+          ...user,
+          events: {
+            click: () => {
+              console.log(user);
+            },
+          }
+        });
+      });
       this.setProps({
-        users,
+        children,
+        users: users.map((user, index) => `UserItem${index}`),
       })
     })
     storeManager.subscribe(StoreFields.isUserListOpened, (isUserListOpened) => {

@@ -1,5 +1,3 @@
-@import "/src/styles/variables";
-
 .users-list {
   position: absolute;
   top: 0;
@@ -8,9 +6,4 @@
   bottom: 0;
   background-color: #FBFBFB;
   z-index: 1;
-
-  &__item {
-    padding: 12px 10px;
-    border-bottom: 1px solid $light-gray;
-  }
 }
