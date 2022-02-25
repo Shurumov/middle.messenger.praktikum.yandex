@@ -16,6 +16,7 @@ export const template = `
         <div class="chat__header-avatar">
         </div>
         <div class="chat__header-name">{{this.currentChat.title}}</div>
+        <div id="toggleUsers" class="chat__header-edit">Редактировать</div>
       </div>
       <div class="chat__messages">
         <div class="chat__date">25 января</div>
@@ -35,6 +36,7 @@ export const template = `
           12:30
         </div>
       </div>
+        <UsersList></UsersList>
       </div>
       <form id="sendMessageForm" class="chat__form">
         <InputMessage></InputMessage>

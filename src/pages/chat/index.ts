@@ -8,6 +8,7 @@ import { chatsService } from '/src/services/chats.service';
 import { StoreFields, storeManager } from '/src/utils/store-manager';
 import '/src/styles/default.scss';
 import { ChatListItem } from '/src/components/chat-list-item';
+import { UsersList } from '/src/components/users-list/users-list';
 
 export class ChatPage extends Block {
   constructor() {
@@ -22,6 +23,17 @@ export class ChatPage extends Block {
             [InputValidatorName.required]: null,
           },
         }),
+        UsersList: new UsersList()
+      },
+      events: {
+        '#toggleUsers': {
+          click: () => {
+            storeManager.set(
+              StoreFields.isUserListOpened,
+              !storeManager.get(StoreFields.isUserListOpened)
+            );
+          }
+        }
       },
       formFields: ['InputMessage'],
     }, 'div', ['chat-page']);
@@ -33,6 +45,10 @@ export class ChatPage extends Block {
           ...chat,
           events: {
             click: () => {
+              storeManager.set(
+                StoreFields.isUserListOpened,
+                false
+              );
               if (storeManager.get(StoreFields.currentChat)?.id !== chat.id) {
                 chatsService.connectToChat(chat);
               }
@@ -53,7 +69,7 @@ export class ChatPage extends Block {
       this.setProps({
         ...this.props,
         currentChat: chat,
-      })
+      });
     });
     chatsService.getChats();
   }

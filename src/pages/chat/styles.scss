@@ -60,6 +60,10 @@
       font-weight: bold;
       color: $black;
     }
+
+    &-edit {
+      margin-left: auto;
+    }
   }
 
   &__messages {
@@ -67,6 +71,7 @@
     height: calc(100% - 110px);
     padding: 10px 20px;
     overflow-y: scroll;
+    position: relative;
   }
 
   &__date {
