@@ -27,9 +27,9 @@ export class ChatPage extends Block {
     }, 'div', ['chat-page']);
 
     storeManager.subscribe(StoreFields.chats, (chats) => {
-      const children = {};
+      const addChildren = {};
       chats.forEach((chat, index) => {
-        children[`ChatListItem${index}`] = new ChatListItem({
+        addChildren[`ChatListItem${index}`] = new ChatListItem({
           ...chat,
           events: {
             click: () => {
@@ -42,9 +42,18 @@ export class ChatPage extends Block {
       });
       this.setProps({
         ...this.props,
-        children,
+        children: {
+          ...this.props.children,
+          ...addChildren
+        },
         chats: chats.map((chat, index) => `ChatListItem${index}`)
       });
+    });
+    storeManager.subscribe(StoreFields.currentChat, (chat) => {
+      this.setProps({
+        ...this.props,
+        currentChat: chat,
+      })
     });
     chatsService.getChats();
   }
