@@ -28,7 +28,7 @@ export class ChatInput extends Block {
   }
 
   validateInput(): boolean {
-    const input = this.getContent().getElementsByTagName('input')[0];
+    const input = this.getBlock().getElementsByTagName('input')[0];
     const validationMethod = getInputValidatorMethod(this.props.validators);
 
     return validationMethod(input);
