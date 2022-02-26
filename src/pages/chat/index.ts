@@ -14,6 +14,7 @@ import { Chat } from '/src/services/api/chat-api';
 import { BaseMessage, Message } from '/src/services/api/chat-api/message.model';
 import { MessageList } from '/src/components/message-list/message-list';
 import { authService } from '/src/services';
+import { validateFormAndSubmit } from '/src/utils/validation/form-validation';
 
 export class ChatPage extends Block {
   activeSocket: WebSocket;
@@ -21,21 +22,36 @@ export class ChatPage extends Block {
   constructor() {
     authService.checkUserAuthed();
 
+    const children = {
+      ChatInput: new ChatInput({
+        label: 'Имя',
+        placeholder: 'Сообщение',
+        name: 'message',
+        replaceClassList: true,
+        validators: {
+          [InputValidatorName.required]: null,
+        },
+      }),
+      UsersList: new UsersList(),
+      MessageList: new MessageList(),
+    };
+
     super({
-      children: {
-        ChatInput: new ChatInput({
-          label: 'Имя',
-          placeholder: 'Сообщение',
-          name: 'message',
-          replaceClassList: true,
-          validators: {
-            [InputValidatorName.required]: null,
-          },
-        }),
-        UsersList: new UsersList(),
-        MessageList: new MessageList(),
-      },
+      children,
       events: {
+        '#sendMessageForm': validateFormAndSubmit([children.ChatInput], ({ message }) => {
+          children.ChatInput.setValue('');
+          if (this.activeSocket) {
+            this.activeSocket.send(
+              JSON.stringify({
+                content: message,
+                time: new Date(),
+                type: 'message',
+              })
+            );
+          }
+        })
+        ,
         '#toggleUsers': {
           click: () => {
             storeManager.set(
@@ -114,17 +130,17 @@ export class ChatPage extends Block {
       }
     });
 
-    this.activeSocket.addEventListener("open", () => {
+    this.activeSocket.addEventListener('open', () => {
       this.activeSocket.send(
         JSON.stringify({
-          content: "0",
-          type: "get old",
+          content: '0',
+          type: 'get old',
         })
       );
     });
 
-    this.activeSocket.addEventListener("close", () => {
-      console.log("Соединение закрыто");
+    this.activeSocket.addEventListener('close', () => {
+      console.log('Соединение закрыто');
     });
   }
 
@@ -134,7 +150,7 @@ export class ChatPage extends Block {
     return {
       ...message,
       isCurrentUserMessage: user.id === message.user_id,
-      userName: userInChat ? [userInChat.first_name, userInChat.second_name].join(" ") : "NULL",
+      userName: userInChat ? [userInChat.first_name, userInChat.second_name].join(' ') : 'NULL',
     };
   }
 
