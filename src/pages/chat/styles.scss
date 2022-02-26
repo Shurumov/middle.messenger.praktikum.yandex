@@ -13,21 +13,17 @@
   width: 310px;
   background-color: #FBFBFB;
 
+  &__form {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__profile {
     font-size: 12px;
     line-height: 12px;
     color: $gray;
-  }
-
-  &__search {
-    padding: 10px;
-    margin-top: 24px;
-    width: 100%;
-    border-radius: 5px;
-    background-color: $light-gray;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
   }
 
   &__items {

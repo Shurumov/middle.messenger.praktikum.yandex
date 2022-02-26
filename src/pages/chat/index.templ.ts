@@ -3,7 +3,10 @@ export const template = `
     <a href="/profile" class="chat-list__profile">
       Профиль
     </a>
-    <input placeholder="Поиск" class="chat-list__search"/>
+    <form id="createChatForm" class="chat-list__form">
+      <ChatCreateInput></ChatCreateInput>
+      <button class="chat__submit" type="submit">+</button>
+    </form>
     <div class="chat-list__items">
       {{#each chats}}
         <{{this}}> </{{this}}>

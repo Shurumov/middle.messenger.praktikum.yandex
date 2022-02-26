@@ -34,6 +34,15 @@ export class ChatPage extends Block {
       }),
       UsersList: new UsersList(),
       MessageList: new MessageList(),
+      ChatCreateInput: new ChatInput({
+        label: 'Название нового чата',
+        placeholder: 'Название нового чата',
+        name: 'chatName',
+        replaceClassList: true,
+        validators: {
+          [InputValidatorName.required]: null,
+        },
+      })
     };
 
     super({
@@ -50,8 +59,11 @@ export class ChatPage extends Block {
               })
             );
           }
-        })
-        ,
+        }),
+        '#createChatForm': validateFormAndSubmit([children.ChatCreateInput], ({ chatName }) => {
+          children.ChatCreateInput.setValue('');
+          chatsService.createChat(chatName);
+        }),
         '#toggleUsers': {
           click: () => {
             storeManager.set(

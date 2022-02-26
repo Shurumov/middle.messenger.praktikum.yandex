@@ -21,6 +21,9 @@ export const template = `
   </div>
   <div class="text-list m-t-10">
       <div class="text-list__item">
+        <a href="/">К чатам</a>
+      </div>
+      <div class="text-list__item">
         <a href="/edit-profile">Изменить данные</a>
       </div>
       <div class="text-list__item">
