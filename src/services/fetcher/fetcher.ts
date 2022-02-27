@@ -33,7 +33,7 @@ type OptionsRequest = {
 }
 
 
-class HTTPTransport {
+export class Fetcher {
   baseUrl = "https://ya-praktikum.tech/api/v2";
   resourceUrl = "http://ya-praktikum.tech/api/v2/resources";
 
@@ -154,4 +154,4 @@ class HTTPTransport {
   };
 }
 
-export const fetcher = new HTTPTransport();
+export const fetcher = new Fetcher();
