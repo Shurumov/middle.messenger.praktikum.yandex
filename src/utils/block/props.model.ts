@@ -1,7 +1,9 @@
-import Block, { CustomElementEvents } from "./block";
+import Block from "./block";
+export type CustomElementEvents = Record<string, (args: any) => void>;
 
-export interface Props {
-  children?: { [key: string]: Block };
-  events?: CustomElementEvents | { [key: string]: CustomElementEvents };
-  formsFields?: string[];
+export interface Props extends Record<string, any>{
+  children?: Record<string, Block>;
+  events?: CustomElementEvents | Record<string, CustomElementEvents>;
+  formsFields?: Record<string, string[]>;
+  classNames?: string[];
 }

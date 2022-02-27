@@ -1,0 +1,7 @@
+@import "/src/styles/variables";
+
+.user-item {
+  padding: 12px 10px;
+  border-bottom: 1px solid $light-gray;
+  cursor: pointer;
+}

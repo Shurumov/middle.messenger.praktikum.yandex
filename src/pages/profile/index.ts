@@ -1,56 +1,45 @@
 import { template } from './index.templ';
 import * as Handlebars from 'handlebars';
-import Block from '~src/utils/block/block';
+import Block from '/src/utils/block/block';
 import './profile.scss';
-import '~src/styles/default.scss'
+import '/src/styles/default.scss';
+import { userInfoMock } from './user-info.mock';
+import { storeManager, StoreFields } from '/src/utils/store-manager';
+import { authService } from '/src/services';
+import { User } from '/src/services/api/users-api';
+import { fetcher } from '/src/services/fetcher';
+import { usersService } from '/src/services/users.service';
 
-class ProfilePage extends Block {
+export class ProfilePage extends Block {
   constructor() {
+    authService.getUser();
     super({
-      userInfo: [
-        { key: 'Почта', value: 'example@mail.com' },
-        { key: 'Логин', value: 'shurumov' },
-        { key: 'Имя', value: 'Алексей' },
-        { key: 'Фамилия', value: 'Шуруомв' },
-        { key: 'Имя в чате', value: 'Алексей' },
-        { key: 'Телефон', value: '+7 (913) 567 45-67' },
-      ]
+      events: {
+        '#logout': {
+          click: () => authService.logout()
+        },
+        '#file': {
+          change: event => {
+            const form = new FormData(event.currentTarget.parentElement);
+            usersService.changeProfileAvatar(form);
+          }
+        }
+      }
     }, 'div', ['flex']);
+    storeManager.subscribe(StoreFields.user, (user: User) => {
+      if (user) {
+        userInfoMock.forEach(item => {
+          item.value = user[item.key];
+        });
+        this.setProps({
+          userInfo: userInfoMock,
+          avatar: `${fetcher.resourceUrl}${user.avatar}`
+        });
+      }
+    });
   }
 
   render() {
     return Handlebars.compile(template)(this.props);
   }
 }
-
-const page = new ProfilePage();
-const root = document.getElementById('root');
-root?.appendChild(page.getContent());
-
-
-// import templateFunction from './index.hbs';
-// import { Block } from '~utils/block';
-// import { renderDOM } from '~utils/render-dom';
-//
-// class SignUpPage extends Block {
-//   constructor() {
-//     super();
-//   }
-//
-//   render() {
-//     renderDOM("body", templateFunction({
-//       userInfo: [
-//         {key: 'Почта', value: 'example@mail.com'},
-//         {key: 'Логин', value: 'shurumov'},
-//         {key: 'Имя', value: 'Алексей'},
-//         {key: 'Фамилия', value: 'Шуруомв'},
-//         {key: 'Имя в чате', value: 'Алексей'},
-//         {key: 'Телефон', value: '+7 (913) 567 45-67'},
-//       ]
-//     }))
-//   }
-// }
-//
-// const pageInstance = new SignUpPage();
-//
-// pageInstance.render();

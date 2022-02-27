@@ -1,31 +1,32 @@
-import { InputValidatorOptions } from "./input-validator.model";
+import { InputValidatorOptions } from './input-validator.model';
+import { Props } from '/src/utils/block/props.model';
 
 export enum InputType {
-  button = "button",
-  checkbox = "checkbox",
-  color = "color",
-  date = "date",
-  datetimeLocal = "datetime-local",
-  email = "email",
-  file = "file",
-  hidden = "hidden",
-  image = "image",
-  month = "month",
-  number = "number",
-  password = "password",
-  radio = "radio",
-  range = "range",
-  reset = "reset",
-  search = "search",
-  submit = "submit",
-  tel = "tel",
-  text = "text",
-  time = "time",
-  url = "url",
-  week = "week",
+  Button = "button",
+  Checkbox = "checkbox",
+  Color = "color",
+  Date = "date",
+  DatetimeLocal = "datetime-local",
+  Email = "email",
+  File = "file",
+  Hidden = "hidden",
+  Image = "image",
+  Month = "month",
+  Number = "number",
+  Password = "password",
+  Radio = "radio",
+  Range = "range",
+  Reset = "reset",
+  Search = "search",
+  Submit = "submit",
+  Tel = "tel",
+  Text = "text",
+  Time = "time",
+  Url = "url",
+  Week = "week",
 }
 
-export interface FormFieldProps {
+export interface FormFieldProps extends Props {
   name: string;
   placeholder: string;
   label: string;

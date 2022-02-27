@@ -1,3 +1,13 @@
+import { registerHelper } from 'handlebars';
+
+registerHelper("numToTime", (num: number) => {
+  if (typeof num === "undefined") {
+    return "";
+  }
+  const date = new Date(num);
+  return `${date.getHours()}:${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}`;
+});
+
 function get(obj: Object, path: string, defaultValue?: string | number | null) {
   const keys = path.split(".");
   let result: Record<string, any> = obj;
@@ -125,6 +135,137 @@ function isIterable(obj: any) {
   return typeof obj[Symbol.iterator] === "function";
 }
 
+function trim(str: string, extraBorderSymbols?: string): string {
+  const regParam = extraBorderSymbols ? `[${extraBorderSymbols}]` : "\\s";
+  const reg = new RegExp(`\^${regParam}+|${regParam}+\$`, "g");
+  const result = str.replace(reg, "");
+  return result;
+}
+
+type Indexed<T = unknown> = {
+  [key in string]: T;
+};
+
+function merge(lhs: Indexed<any>, rhs: Indexed<any>): Indexed<any> {
+  for (const p in rhs) {
+    if (!rhs.hasOwnProperty(p)) {
+      continue;
+    }
+
+    try {
+      if (rhs[p].constructor === Object) {
+        rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
+      } else {
+        lhs[p] = rhs[p];
+      }
+    } catch (e) {
+      lhs[p] = rhs[p];
+    }
+  }
+
+  return lhs;
+}
+
+function set(obj: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
+  if (isObjectLike(obj)) {
+    return obj;
+  }
+
+  if (typeof path !== "string") {
+    throw new Error("path must be string");
+  }
+
+  const result = path.split(".").reduceRight<Indexed>(
+    (acc, key) => ({
+      [key]: acc,
+    }),
+    value as any
+  );
+  return merge(obj as Indexed, result);
+}
+
+function isEqual(a: any, b: any): boolean {
+  if (!isObjectLike(a)) {
+    return isObjectLike(b) ? false : a === b;
+  }
+
+  if (!isObjectLike(b)) {
+    return isObjectLike(a) ? false : a === b;
+  }
+
+  const aKeys = Object.keys(a);
+  if (aKeys.length !== Object.keys(b).length) {
+    return false;
+  }
+
+  for (const key of aKeys) {
+    if (isObjectLike(a[key]) && isObjectLike(b[key])) {
+      if (isEqual(a[key], b[key])) {
+        continue;
+      }
+      return false;
+    } else if (a[key] !== b[key]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function cloneDeep<T extends ObjectLiteral = ObjectLiteral>(obj: T): any {
+  if (Array.isArray(obj)) {
+    return obj.map(cloneDeep);
+  } else if (isObjectLike(obj)) {
+    const target: any = {};
+    for (const [key, value] of Object.entries(obj)) {
+      if (Array.isArray(value)) {
+        target[key] = value.map(cloneDeep);
+      } else {
+        target[key] = isObjectLike(value) ? cloneDeep(value) : value;
+      }
+    }
+    return target;
+  }
+
+  return obj;
+}
+
+type StringIndexed = Record<string, any>;
+
+function queryStringify(data: StringIndexed): string | never {
+  if (!isObjectLike(data)) {
+    throw new Error("input must be an object");
+  }
+  const result = [];
+  for (const [key, value] of Object.entries(data)) {
+    if (withKeys(value)) {
+      result.push(...stringifyObjectOrArray(value).map((item) => `${key}${item}`));
+    } else {
+      result.push(`${key}=${value}`);
+    }
+  }
+
+  return result.join("&");
+}
+
+function withKeys(data: any) {
+  return isObjectLike(data) || Array.isArray(data);
+}
+
+function stringifyObjectOrArray(data: any) {
+  const result: any[] = [];
+  Object.entries(data).forEach(([key, value]) => {
+    if (withKeys(value)) {
+      result.push(...stringifyObjectOrArray(value).map((item) => `[${key}]${item}`));
+    } else {
+      result.push(`[${key}]=${value}`);
+    }
+  });
+
+  return result;
+}
+
+
 export const helpers = {
   get,
   first,
@@ -140,4 +281,10 @@ export const helpers = {
   isArguments,
   isEmpty,
   isIterable,
+  trim,
+  merge,
+  set,
+  isEqual,
+  cloneDeep,
+  queryStringify,
 };

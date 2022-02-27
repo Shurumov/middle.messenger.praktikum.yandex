@@ -5,7 +5,7 @@ export const formFieldTmpl = `
         placeholder="{{placeholder}}"
         type="{{#if type}}{{type}}{{else}}text{{/if}}"
         value="{{value}}"
-        autocomplete="off"
+        autocomplete
     />
     <div class="form-field__error">
       {{errorText}}

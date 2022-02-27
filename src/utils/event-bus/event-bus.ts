@@ -1,5 +1,5 @@
 export class EventBus {
-  listeners: { [key: string]: ((...args: any[]) => void)[] };
+  listeners: Record<string, ((...args: any[]) => void)[]>;
 
   constructor() {
     this.listeners = {};

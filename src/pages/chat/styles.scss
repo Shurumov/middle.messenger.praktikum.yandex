@@ -1,6 +1,7 @@
-@import "../../styles/variables";
+@import "/src/styles/variables";
 
 .chat-page {
+  width: 100%;
   display: flex;
   align-items: stretch;
   height: 100vh;
@@ -12,88 +13,21 @@
   width: 310px;
   background-color: #FBFBFB;
 
+  &__form {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__profile {
     font-size: 12px;
     line-height: 12px;
     color: $gray;
   }
 
-  &__search {
-    padding: 10px;
-    margin-top: 24px;
-    width: 100%;
-    border-radius: 5px;
-    background-color: $light-gray;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
-  }
-
   &__items {
     margin-top: 12px;
-  }
-
-  &__item {
-    padding: 12px 0;
-    border-top: 1px solid $light-gray;
-    display: flex;
-    align-items: flex-start;
-
-    &-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background-color: $light-gray;
-      flex-shrink: 0;
-    }
-
-    &-center {
-      margin-left: 10px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    &-name {
-      font-size: 12px;
-      font-weight: bold;
-      color: $black;
-    }
-
-    &-message {
-      margin-top: 4px;
-      font-size: 12px;
-      line-height: 12px;
-      color: $gray;
-    }
-
-    &-right {
-      margin-left: 28px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      flex-shrink: 0;
-    }
-
-    &-time {
-      font-size: 8px;
-      line-height: 13px;
-      color: $gray;
-    }
-
-    &-notion {
-      margin-top: 12px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background-color: $blue;
-      color: $white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 11px;
-      line-height: 11px;
-    }
   }
 }
 
@@ -122,6 +56,10 @@
       font-weight: bold;
       color: $black;
     }
+
+    &-edit {
+      margin-left: auto;
+    }
   }
 
   &__messages {
@@ -129,6 +67,7 @@
     height: calc(100% - 110px);
     padding: 10px 20px;
     overflow-y: scroll;
+    position: relative;
   }
 
   &__date {

@@ -1,6 +1,6 @@
 export const template = `
   <h3 class="container__title">Регистрация</h3>
-  <form class="sign-up-form">
+  <form id="signupForm" class="sign-up-form">
       <EmailInput></EmailInput>
       <LoginInput></LoginInput>
       <FirstNameInput></FirstNameInput>
@@ -10,5 +10,5 @@ export const template = `
       <PasswordConfirmInput></PasswordConfirmInput>
     <button type="submit" class="button container__button">Зарегистрироваться</button>
   </form>
-  <a class="container__link m-t-6" href="../sign-in/index.html">Войти</a>
+  <a class="container__link m-t-6" href="/sign-in">Войти</a>
 `;

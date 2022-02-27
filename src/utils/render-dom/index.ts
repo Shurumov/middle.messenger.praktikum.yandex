@@ -1,1 +1,0 @@
-export { renderDOM } from './render-dom'
