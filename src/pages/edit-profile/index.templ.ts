@@ -10,5 +10,6 @@ export const template = `
       <PhoneInput></PhoneInput>
       <button type="submit" class="button container__button">Сохранить</button>
     </form>
+    <a class="container__link m-t-6" href="/profile">К профилю</a>
   </div>
 `;

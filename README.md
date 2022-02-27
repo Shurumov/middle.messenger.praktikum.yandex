@@ -14,6 +14,7 @@ PR первого спринта https://github.com/Shurumov/middle.messenger.pr
 
 PR второго спринта https://github.com/Shurumov/middle.messenger.praktikum.yandex/pull/4
 
+PR третьего спринта https://github.com/Shurumov/middle.messenger.praktikum.yandex/pull/5
 
 сборка проекта `npm run build`
 
