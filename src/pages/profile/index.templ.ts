@@ -1,8 +1,13 @@
 export const template = `
 <div class="profile">
   <div class="profile__image">
-    <img src="./placeholder.png" alt="">
-    <div class="profile-change">Поменять<br>аватар</div>
+    <img src="{{avatar}}" alt="">
+    <label class="profile-change">
+      Поменять<br>аватар
+      <form>
+        <input name="avatar" id="file" type="file"/>
+       </form>
+    </label>
   </div>
   <div class="profile__name m-t-5">
     Алексей
