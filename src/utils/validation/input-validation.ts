@@ -1,5 +1,5 @@
 import { FormField } from '/src/components/form-field/form-field';
-import { helpers } from '/src/utils/helpers/helpers';
+import { helpers } from '/src/utils/helpers';
 import { InputType } from '/src/components/form-field/form-field.model';
 import {
   InputValidatorOptions,
