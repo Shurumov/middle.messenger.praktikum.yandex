@@ -13,10 +13,10 @@ describe("StoreManager", () => {
     expect(store.get(StoreFields.user)).eql(value1);
   });
 
-  it("should concat values on concatToValue", () => {
+  it("should concat values on update", () => {
     const store = new StoreManager();
-    store.concatToValue(StoreFields.messages, value1);
-    store.concatToValue(StoreFields.messages, [value2]);
+    store.update(StoreFields.messages, value1);
+    store.update(StoreFields.messages, [value2]);
 
     expect(store.get(StoreFields.messages)).eql([value1, value2]);
   });

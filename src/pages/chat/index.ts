@@ -15,7 +15,6 @@ import { BaseMessage, Message } from '/src/services/api/chat-api/message.model';
 import { MessageList } from '/src/components/message-list/message-list';
 import { authService } from '/src/services';
 import { validateFormAndSubmit } from '/src/utils/validation/form-validation';
-import { StoreManager } from '/src/utils/store-manager/store-manager';
 
 export class ChatPage extends Block {
   activeSocket: WebSocket;
@@ -82,9 +81,9 @@ export class ChatPage extends Block {
     }, 'div', ['chat-page']);
 
     storeManager.subscribe(StoreFields.chats, (chats) => {
-      const addChildren = {};
+      const chatListItems = {};
       chats.forEach((chat, index) => {
-        addChildren[`ChatListItem${index}`] = new ChatListItem({
+        chatListItems[`ChatListItem${index}`] = new ChatListItem({
           ...chat,
           events: {
             click: () => {
@@ -103,7 +102,7 @@ export class ChatPage extends Block {
         ...this.props,
         children: {
           ...this.props.children,
-          ...addChildren
+          ...chatListItems
         },
         chats: chats.map((chat, index) => `ChatListItem${index}`)
       });
@@ -149,7 +148,7 @@ export class ChatPage extends Block {
           ? response.map((item) => this.getCustomMessage(item, currentUser, usersInChat)).reverse()
           : [this.getCustomMessage(response, currentUser, usersInChat)];
 
-        storeManager.concatToValue(StoreFields.messages, messages);
+        storeManager.update(StoreFields.messages, messages);
       }
     });
 
