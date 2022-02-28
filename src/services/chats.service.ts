@@ -14,8 +14,7 @@ class ChatsService {
   }
 
   createChat(title: string): Promise<void> {
-    return chatsApi.createChat(title).then((data) => {
-      console.log('chat added: ', data);
+    return chatsApi.createChat(title).then(() => {
       this.getChats();
     });
   }
