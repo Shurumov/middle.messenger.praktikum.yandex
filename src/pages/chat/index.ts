@@ -14,14 +14,12 @@ import { Chat } from '/src/services/api/chat-api';
 import { BaseMessage, Message } from '/src/services/api/chat-api/message.model';
 import { MessageList } from '/src/components/message-list/message-list';
 import { authService } from '/src/services';
-import { validateFormAndSubmit } from '/src/utils/validation/form-validation';
+import { handleSubmit } from '/src/utils/validation/form-validation';
 
 export class ChatPage extends Block {
   activeSocket: WebSocket;
 
   constructor() {
-    authService.checkUserAuthed();
-
     const children = {
       ChatInput: new ChatInput({
         label: 'Имя',
@@ -48,7 +46,7 @@ export class ChatPage extends Block {
     super({
       children,
       events: {
-        '#sendMessageForm': validateFormAndSubmit([children.ChatInput], ({ message }) => {
+        '#sendMessageForm': handleSubmit([children.ChatInput], ({ message }) => {
           children.ChatInput.setValue('');
           if (this.activeSocket) {
             this.activeSocket.send(
@@ -60,7 +58,7 @@ export class ChatPage extends Block {
             );
           }
         }),
-        '#createChatForm': validateFormAndSubmit([children.ChatCreateInput], ({ chatName }) => {
+        '#createChatForm': handleSubmit([children.ChatCreateInput], ({ chatName }) => {
           children.ChatCreateInput.setValue('');
           chatsService.createChat(chatName);
         }),
@@ -71,14 +69,21 @@ export class ChatPage extends Block {
               !storeManager.get(StoreFields.isUserListOpened)
             );
           }
+        },
+        '#deleteChat': {
+          click: () => {
+            chatsService.deleteChat(storeManager.get(StoreFields.currentChat).id).then(() => {
+              storeManager.set(StoreFields.currentChat, null)
+            })
+          }
         }
       },
     }, 'div', ['chat-page']);
 
     storeManager.subscribe(StoreFields.chats, (chats) => {
-      const addChildren = {};
+      const chatListItems = {};
       chats.forEach((chat, index) => {
-        addChildren[`ChatListItem${index}`] = new ChatListItem({
+        chatListItems[`ChatListItem${index}`] = new ChatListItem({
           ...chat,
           events: {
             click: () => {
@@ -97,7 +102,7 @@ export class ChatPage extends Block {
         ...this.props,
         children: {
           ...this.props.children,
-          ...addChildren
+          ...chatListItems
         },
         chats: chats.map((chat, index) => `ChatListItem${index}`)
       });
@@ -120,6 +125,11 @@ export class ChatPage extends Block {
     });
   }
 
+  componentDidMount() {
+    authService.checkUserAuthed();
+
+  }
+
   openSocket(user: User, chat: Chat): void {
     this.activeSocket = new WebSocket(
       `wss://ya-praktikum.tech/ws/chats/${user.id}/${chat.id}/${chat.token}`
@@ -138,7 +148,7 @@ export class ChatPage extends Block {
           ? response.map((item) => this.getCustomMessage(item, currentUser, usersInChat)).reverse()
           : [this.getCustomMessage(response, currentUser, usersInChat)];
 
-        storeManager.concatToValue(StoreFields.messages, messages);
+        storeManager.update(StoreFields.messages, messages);
       }
     });
 

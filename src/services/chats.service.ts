@@ -14,8 +14,7 @@ class ChatsService {
   }
 
   createChat(title: string): Promise<void> {
-    return chatsApi.createChat(title).then((data) => {
-      console.log('chat added: ', data);
+    return chatsApi.createChat(title).then(() => {
       this.getChats();
     });
   }
@@ -74,6 +73,12 @@ class ChatsService {
         ...chat,
         token
       }));
+  }
+
+  deleteChat(chatId: number) {
+    return chatsApi.deleteChat(chatId).then(() =>{
+      this.getChats();
+    })
   }
 }
 

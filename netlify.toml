@@ -1,3 +1,39 @@
 [build]
   command = "npm run build"
   publish = "dist"
+
+
+[[redirects]]
+  from = "/sign-in"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/sign-up"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/404"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/500"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/profile"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/edit-password"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/edit-profile"
+  to = "/"
+  status = 200

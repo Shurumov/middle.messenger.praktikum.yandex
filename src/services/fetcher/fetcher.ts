@@ -1,26 +1,10 @@
+import { helpers } from '/src/utils/helpers';
+
 enum METHODS {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
   DELETE = 'DELETE',
-}
-
-function queryStringify(data: Record<string, any>) {
-  return Object.entries(data)
-    .reduce((acc: string[], [key, value]) => {
-      acc.push(acc.length === 0 ? "?" : "&");
-
-      acc.push(`${key}=`);
-
-      if (Array.isArray(value)) {
-        acc.push(value.map((item) => item.toString()).join(","));
-      } else {
-        acc.push(value.toString());
-      }
-
-      return acc;
-    }, [])
-    .join("");
 }
 
 type OptionsRequest = {
@@ -78,7 +62,7 @@ export class Fetcher {
       const prepareXhr = () => {
         const workUrl =
           method === METHODS.GET && data
-            ? `${fullUrl}${queryStringify(data)}`
+            ? `${fullUrl}${helpers.queryStringify(data)}`
             : fullUrl;
 
         xhr.open(method ?? METHODS.GET, workUrl);

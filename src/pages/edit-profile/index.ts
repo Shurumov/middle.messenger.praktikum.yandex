@@ -1,7 +1,7 @@
 import { template } from './index.templ';
 import * as Handlebars from 'handlebars';
 import Block from '/src/utils/block/block';
-import { validateFormAndSubmit } from '/src/utils/validation/form-validation';
+import { handleSubmit } from '/src/utils/validation/form-validation';
 import { FormField } from '/src/components/form-field/form-field';
 import {
   InputValidationPattern,
@@ -22,7 +22,7 @@ export class EditProfilePage extends Block {
     const children = EditProfilePage.getChildren();
 
     const events = {
-      '#editUserProfileForm': validateFormAndSubmit(
+      '#editUserProfileForm': handleSubmit(
         [
           children.EmailInput,
           children.LoginInput,

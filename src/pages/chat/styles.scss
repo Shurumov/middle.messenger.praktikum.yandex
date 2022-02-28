@@ -57,8 +57,14 @@
       color: $black;
     }
 
-    &-edit {
+    &-delete {
       margin-left: auto;
+      cursor: pointer;
+    }
+
+    &-edit {
+      margin-left: 16px;
+      cursor: pointer;
     }
   }
 

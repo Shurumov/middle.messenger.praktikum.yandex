@@ -29,8 +29,7 @@ export class StoreManager {
 
     this.store = new Proxy<Record<string, any>>(this._storeObject, {
       get: (target, prop: string) => {
-        const value = helpers.cloneDeep(target[prop]);
-        return value;
+        return helpers.cloneDeep(target[prop]);
       },
       set: (target, prop: string, value) => {
         if (typeof value === 'function') {
@@ -64,16 +63,8 @@ export class StoreManager {
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-  concatToValue(prop: StoreFields, value: any): void {
-    let oldValue = this.get(prop);
-
-    if (typeof oldValue === 'undefined') {
-      oldValue = [];
-    }
-
-    const additionalValues = Array.isArray(value) ? value : [value];
-
-    this.store[prop] = [...oldValue, ...additionalValues];
+  update(prop: StoreFields, value: any): void {
+    this.store[prop] = value;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

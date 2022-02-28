@@ -33,7 +33,7 @@ class ChatsApi {
   }
 
   deleteChat(chatId: number): Promise<void> {
-    return fetcher.post("/chats", {
+    return fetcher.delete("/chats", {
       data: {
         chatId,
       },
