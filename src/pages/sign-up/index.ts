@@ -7,7 +7,7 @@ import {
   InputValidationPattern
 } from '/src/utils/validation/input-validation';
 import { InputType } from '/src/components/form-field/form-field.model';
-import { validateFormAndSubmit } from '/src/utils/validation/form-validation';
+import { handleSubmit } from '/src/utils/validation/form-validation';
 import { authService } from '/src/services';
 import './style.scss'
 import '/src/styles/default.scss'
@@ -21,7 +21,7 @@ export class SignUpPage extends Block {
     const children = SignUpPage.getChildren();
 
     const events = {
-      "#signupForm": validateFormAndSubmit(
+      "#signupForm": handleSubmit(
         [
           children.EmailInput,
           children.LoginInput,

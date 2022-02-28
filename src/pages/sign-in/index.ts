@@ -4,7 +4,7 @@ import Block from '/src/utils/block/block';
 import { FormField } from '/src/components/form-field/form-field';
 import { InputValidatorName } from '/src/utils/validation/input-validation';
 import { InputType } from '/src/components/form-field/form-field.model';
-import { validateFormAndSubmit } from '/src/utils/validation/form-validation';
+import { handleSubmit } from '/src/utils/validation/form-validation';
 import { authService } from '/src/services';
 
 import './styles.scss';
@@ -16,7 +16,7 @@ export class SignInPage extends Block {
     const children = SignInPage.getChildren();
 
     const events = {
-      "#loginForm": validateFormAndSubmit(
+      "#loginForm": handleSubmit(
         [children.LoginInput, children.PasswordInput],
         ({ login, password }) => authService.login(login, password)
       ),

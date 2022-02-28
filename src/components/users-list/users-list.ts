@@ -9,7 +9,7 @@ import {
 import './users-list.scss';
 import { User } from '/src/services/api/users-api';
 import { UserItem } from '/src/components/user-item';
-import { validateFormAndSubmit } from '/src/utils/validation/form-validation';
+import { handleSubmit } from '/src/utils/validation/form-validation';
 import { chatsService } from '/src/services/chats.service';
 import { usersService } from '/src/services/users.service';
 
@@ -63,7 +63,7 @@ export class UsersList extends Block {
     super({
       children,
       events: {
-        '#searchUsersForm': validateFormAndSubmit(
+        '#searchUsersForm': handleSubmit(
           [children.SearchUsers],
           ({ query }: { query: string }) => {
             if (query) {

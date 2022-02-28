@@ -14,7 +14,7 @@ import { Chat } from '/src/services/api/chat-api';
 import { BaseMessage, Message } from '/src/services/api/chat-api/message.model';
 import { MessageList } from '/src/components/message-list/message-list';
 import { authService } from '/src/services';
-import { validateFormAndSubmit } from '/src/utils/validation/form-validation';
+import { handleSubmit } from '/src/utils/validation/form-validation';
 
 export class ChatPage extends Block {
   activeSocket: WebSocket;
@@ -46,7 +46,7 @@ export class ChatPage extends Block {
     super({
       children,
       events: {
-        '#sendMessageForm': validateFormAndSubmit([children.ChatInput], ({ message }) => {
+        '#sendMessageForm': handleSubmit([children.ChatInput], ({ message }) => {
           children.ChatInput.setValue('');
           if (this.activeSocket) {
             this.activeSocket.send(
@@ -58,7 +58,7 @@ export class ChatPage extends Block {
             );
           }
         }),
-        '#createChatForm': validateFormAndSubmit([children.ChatCreateInput], ({ chatName }) => {
+        '#createChatForm': handleSubmit([children.ChatCreateInput], ({ chatName }) => {
           children.ChatCreateInput.setValue('');
           chatsService.createChat(chatName);
         }),

@@ -22,7 +22,25 @@ export const FormValidators: { [key: string]: FormValidatorConstructor } = {
     },
 };
 
-export function validateFormAndSubmit(
+export function validateForm(formFields: FormField[],formValidators: FormValidator[] = []) {
+  let validity = true;
+
+  validity = formFields.reduce((acc: boolean, formField: FormField) => {
+    const fieldValidity = formField.validateInput();
+
+    return acc && fieldValidity;
+  }, validity);
+
+  validity = formValidators.reduce((acc: boolean, formValidator: FormValidator) => {
+    const formValidity = formValidator();
+
+    return acc && formValidity;
+  }, validity);
+
+  return validity;
+}
+
+export function handleSubmit(
   formFields: FormField[],
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   submitCallback: (...args: any) => void,
@@ -34,21 +52,7 @@ export function validateFormAndSubmit(
 
       const inputs: HTMLCollection = event.target.getElementsByTagName("input");
 
-      let validity = true;
-
-      validity = formFields.reduce((acc: boolean, formField: FormField) => {
-        const fieldValidity = formField.validateInput();
-
-        return acc && fieldValidity;
-      }, validity);
-
-      validity = formValidators.reduce((acc: boolean, formValidator: FormValidator) => {
-        const formValidity = formValidator();
-
-        return acc && formValidity;
-      }, validity);
-
-      if (validity) {
+      if (validateForm(formFields, formValidators)) {
         const formValue = Object.values(inputs).reduce(
           (acc: { [key: string]: string | number }, input: HTMLInputElement) => {
             acc[input.name] = input.value;

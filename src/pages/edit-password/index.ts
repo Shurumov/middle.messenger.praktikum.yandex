@@ -1,7 +1,7 @@
 import { template } from './index.templ';
 import * as Handlebars from 'handlebars';
 import Block from '/src/utils/block/block';
-import { validateFormAndSubmit } from '/src/utils/validation/form-validation';
+import { handleSubmit } from '/src/utils/validation/form-validation';
 import { FormField } from '/src/components/form-field/form-field';
 import { InputType } from '/src/components/form-field/form-field.model';
 import { InputValidatorName } from '/src/utils/validation/input-validation';
@@ -16,7 +16,7 @@ export class EditPasswordPage extends Block {
     const children = EditPasswordPage.getChildren();
 
     const events = {
-      '#editPasswordForm': validateFormAndSubmit(
+      '#editPasswordForm': handleSubmit(
         [children.OldPasswordInput, children.PasswordInput, children.PasswordConfirmInput],
         ({ oldPassword, newPassword }) => {
           usersService.changePassword(oldPassword, newPassword);
