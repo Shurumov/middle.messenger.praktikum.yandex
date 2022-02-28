@@ -63,8 +63,16 @@ export class StoreManager {
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-  update(prop: StoreFields, value: any): void {
-    this.store[prop] = value;
+  addChatMessage(prop: StoreFields, value: any): void {
+    let oldValue = this.get(prop);
+
+    if (typeof oldValue === 'undefined') {
+      oldValue = [];
+    }
+
+    const additionalValues = Array.isArray(value) ? value : [value];
+
+    this.store[prop] = [...oldValue, ...additionalValues];
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

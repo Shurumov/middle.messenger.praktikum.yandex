@@ -148,7 +148,7 @@ export class ChatPage extends Block {
           ? response.map((item) => this.getCustomMessage(item, currentUser, usersInChat)).reverse()
           : [this.getCustomMessage(response, currentUser, usersInChat)];
 
-        storeManager.update(StoreFields.messages, messages);
+        storeManager.addChatMessage(StoreFields.messages, messages);
       }
     });
 

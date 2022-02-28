@@ -15,8 +15,8 @@ describe("StoreManager", () => {
 
   it("should concat values on update", () => {
     const store = new StoreManager();
-    store.update(StoreFields.messages, value1);
-    store.update(StoreFields.messages, [value2]);
+    store.addChatMessage(StoreFields.messages, value1);
+    store.addChatMessage(StoreFields.messages, [value2]);
 
     expect(store.get(StoreFields.messages)).eql([value1, value2]);
   });
