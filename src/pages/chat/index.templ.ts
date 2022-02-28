@@ -19,6 +19,7 @@ export const template = `
         <div class="chat__header-avatar">
         </div>
         <div class="chat__header-name">{{this.currentChat.title}}</div>
+        <div id="deleteChat" class="chat__header-delete">Удалить чат</div>
         <div id="toggleUsers" class="chat__header-edit">Редактировать</div>
       </div>
       <MessageList></MessageList>

@@ -15,13 +15,12 @@ import { BaseMessage, Message } from '/src/services/api/chat-api/message.model';
 import { MessageList } from '/src/components/message-list/message-list';
 import { authService } from '/src/services';
 import { validateFormAndSubmit } from '/src/utils/validation/form-validation';
+import { StoreManager } from '/src/utils/store-manager/store-manager';
 
 export class ChatPage extends Block {
   activeSocket: WebSocket;
 
   constructor() {
-    authService.checkUserAuthed();
-
     const children = {
       ChatInput: new ChatInput({
         label: 'Имя',
@@ -71,6 +70,13 @@ export class ChatPage extends Block {
               !storeManager.get(StoreFields.isUserListOpened)
             );
           }
+        },
+        '#deleteChat': {
+          click: () => {
+            chatsService.deleteChat(storeManager.get(StoreFields.currentChat).id).then(() => {
+              storeManager.set(StoreFields.currentChat, null)
+            })
+          }
         }
       },
     }, 'div', ['chat-page']);
@@ -118,6 +124,11 @@ export class ChatPage extends Block {
         this.openSocket(user, chat);
       }
     });
+  }
+
+  componentDidMount() {
+    authService.checkUserAuthed();
+
   }
 
   openSocket(user: User, chat: Chat): void {

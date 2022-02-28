@@ -75,6 +75,12 @@ class ChatsService {
         token
       }));
   }
+
+  deleteChat(chatId: number) {
+    return chatsApi.deleteChat(chatId).then(() =>{
+      this.getChats();
+    })
+  }
 }
 
 export const chatsService = new ChatsService();

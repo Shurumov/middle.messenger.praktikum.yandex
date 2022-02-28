@@ -13,8 +13,6 @@ import '/src/styles/container.scss';
 
 export class SignInPage extends Block {
   constructor() {
-    authService.checkUserAuthed();
-
     const children = SignInPage.getChildren();
 
     const events = {
@@ -28,6 +26,10 @@ export class SignInPage extends Block {
       children,
       events
     }, "div", ["flex"]);
+  }
+
+  componentDidMount() {
+    authService.checkUserAuthed();
   }
 
   static getChildren() {

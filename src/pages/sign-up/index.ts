@@ -17,7 +17,6 @@ import { FormValidators } from '/src/utils/validation/form-validation';
 export class SignUpPage extends Block {
 
   constructor() {
-    authService.checkUserAuthed();
 
     const children = SignUpPage.getChildren();
 
@@ -44,6 +43,10 @@ export class SignUpPage extends Block {
 
     super({ children, events }, "div", ["container"]);
 
+  }
+
+  componentDidMount() {
+    authService.checkUserAuthed();
   }
 
   static getChildren() {

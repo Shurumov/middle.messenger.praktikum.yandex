@@ -8,7 +8,7 @@ import { helpers } from '/src/utils/helpers';
 import { getInputValidatorMethod } from '/src/utils/validation/input-validation';
 
 export class FormField extends Block {
-  constructor(props: FormFieldProps, tag: string, className: string[]) {
+  constructor(props: FormFieldProps, tag?: string, className?: string[]) {
     super(props, tag || "div", className || ["form-field", ...(props.classNames ?? [])]);
 
     if (props.validators && !helpers.isEmpty(props.validators)) {
