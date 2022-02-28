@@ -1,4 +1,4 @@
-import { helpers } from '/src/utils/helpers/helpers';
+import { helpers } from '/src/utils/helpers';
 import { EventBus } from '/src/utils/event-bus';
 
 export enum StoreFields {

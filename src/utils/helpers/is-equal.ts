@@ -1,4 +1,4 @@
-import { isObjectLike } from './index';
+import { isObjectLike } from './is-object-like';
 export function isEqual(a: any, b: any): boolean {
   if (!isObjectLike(a)) {
     return isObjectLike(b) ? false : a === b;
