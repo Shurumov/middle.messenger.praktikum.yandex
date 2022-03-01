@@ -1,75 +1,66 @@
 import { EventBus } from '/src/utils/event-bus';
 import { Props } from '/src/utils/block/props.model';
 import { CustomElementEvents } from './props.model';
+import { helpers } from '/src/utils/helpers';
+
+interface Meta<T> {
+  classNames: string[];
+  tagName: string;
+  props: T;
+}
+
 export default abstract class Block<BlockProps extends Props = Props> {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_RENDER: "flow:render",
-    FLOW_CDU: "flow:component-did-update",
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_RENDER: 'flow:render',
+    FLOW_CDU: 'flow:component-did-update',
   };
 
   readonly eventBus: EventBus = new EventBus();
   props: BlockProps;
 
   _element: HTMLElement;
-  _meta: any = null;
+  _meta: Meta<BlockProps>;
 
   listeners: CustomElementEvents = {};
 
+  get element(): HTMLElement {
+    return this._element;
+  }
+
   childrenListeners: Record<string, CustomElementEvents> = {};
 
-  constructor(props: BlockProps, tagName = "div", classNames: string[] = []) {
+  constructor(props: BlockProps, tagName = 'div', classNames: string[] = []) {
     this._meta = {
       tagName,
       props,
       classNames,
     };
 
-    this.props = this._makePropsProxy(props);
-
-    this._registerEvents(this.eventBus);
+    this.registerBlockEvents(this.eventBus);
     this.eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _registerEvents(eventBus: EventBus) {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+  render(): string {
+    return '';
   }
 
-  _createResources() {
-    const { tagName, classNames } = this._meta;
-    this._element = this._createDocumentElement(tagName, classNames);
+  getBlock(): HTMLElement {
+    return this.element;
   }
 
-  init() {
-    this._createResources();
-    this.eventBus.emit(Block.EVENTS.FLOW_CDM);
-  }
-
-  _componentDidMount() {
-    this.componentDidMount(this.props);
-    this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
-  }
-
-  componentDidMount(_oldProps: any): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  componentDidMount(_props: BlockProps): void {
     return;
   }
 
-  _componentDidUpdate(oldProps: any, newProps: any): void {
-    const response = this.componentDidUpdate(oldProps, newProps);
-    if (response) {
-      this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
-    }
+
+  componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
+    return !helpers.isEqual(oldProps, newProps);
   }
 
-  componentDidUpdate(_oldProps: any, _newProps: any): boolean {
-    return _oldProps !== _newProps;
-  }
-
-  setProps = (nextProps: BlockProps) => {
+  setProps(nextProps: BlockProps): void {
     if (!nextProps) {
       return;
     }
@@ -79,63 +70,95 @@ export default abstract class Block<BlockProps extends Props = Props> {
     Object.assign(this.props, nextProps);
 
     this.eventBus.emit(Block.EVENTS.FLOW_CDU, oldState, this.props);
-  };
-
-  get element() {
-    return this._element;
   }
 
-  _addChildComponents() {
-    if (this.props.children) {
-      Object.entries(this.props.children).forEach(([key, value]: [string, Block]) => {
-        const children = this._element.getElementsByTagName(key);
-        if (children.length > 0) {
-          children[0].replaceWith(value.getContent());
-        }
-      });
+  show(): void {
+    if (this._element) {
+      this._element.style.display = 'block';
     }
   }
 
-  _render(): void {
-    const block = this.render();
-
-    this._removeEvents();
-
-    this._element.innerHTML = block;
-
-    this._addEvents();
-
-    this._addChildComponents();
+  hide(): void {
+    if (this._element) {
+      this._element.style.display = 'none';
+    }
   }
 
-  private _addEvents() {
+  private init() {
+    const { tagName, classNames, props } = this._meta;
+
+    this.props = this.makePropsProxy(props);
+
+    const elem = document.createElement(tagName);
+    classNames.forEach((className) => {
+      elem.classList.add(className);
+    });
+
+    this._element = elem;
+    this.eventBus.emit(Block.EVENTS.FLOW_CDM);
+  }
+
+  private _render(): void {
+    const block = this.render();
+
+    this.removeEvents();
+
+    this._element.innerHTML = block;
+    this.addElementEvents();
+
+    this.addChildrenComponents();
+    this.addChildrenEvents();
+  }
+
+  private addElementEvents(): void {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((key) => {
-      if (typeof events[key] === "function") {
+      if (typeof events[key] === 'function') {
         const eventName = key;
         const eventCallback = events[key];
 
         this._element.addEventListener(eventName, eventCallback.bind(this));
         this.listeners[eventName] = eventCallback;
-      } else {
-        const tagName = key;
-        const specificElementEvents = events[key];
-        const specificTagCollection = this._element.getElementsByTagName(tagName);
+      }
+    });
+  }
+
+  private addChildrenComponents() {
+    if (this.props.children) {
+      Object.entries(this.props.children).forEach(([childTag, childBlock]: [string, Block]) => {
+        const childrenAnchors = this._element.getElementsByTagName(childTag);
+        if (childrenAnchors.length > 0) {
+          Array.from(childrenAnchors).forEach((anchor) => {
+            const block = childBlock.getBlock();
+            block.classList.add(childTag);
+            anchor.replaceWith(block);
+          });
+        }
+      });
+    }
+  }
+
+  private addChildrenEvents(): void {
+    const { events = {} } = this.props;
+    Object.keys(events).forEach((tagName) => {
+      if (typeof events[tagName] !== 'function') {
+        const specificElementEvents = events[tagName];
+        const specificTagCollection = this._element.querySelectorAll(tagName);
 
         if (specificTagCollection.length > 0) {
           const specificElement = specificTagCollection[0];
 
           Object.keys(specificElementEvents).forEach((eventName: string) => {
-            if (typeof specificElementEvents[eventName] === "function") {
+            if (typeof specificElementEvents[eventName] === 'function') {
               specificElement.addEventListener(
                 eventName,
                 specificElementEvents[eventName].bind(this)
               );
-              if (typeof this.childrenListeners[key] === "undefined") {
-                this.childrenListeners[key] = {};
+              if (typeof this.childrenListeners[tagName] === 'undefined') {
+                this.childrenListeners[tagName] = {};
               }
-              this.childrenListeners[key][eventName] = specificElementEvents[eventName];
+              this.childrenListeners[tagName][eventName] = specificElementEvents[eventName];
             }
           });
         }
@@ -143,71 +166,63 @@ export default abstract class Block<BlockProps extends Props = Props> {
     });
   }
 
-  private _removeEvents() {
+  private removeEvents() {
     Object.entries(this.listeners).forEach(([eventName, eventCallback]) => {
       this._element.removeEventListener(eventName, eventCallback);
     });
 
-    Object.keys(this.childrenListeners).forEach((tagName) => {
-      const specificTagCollection = this._element.getElementsByTagName(tagName);
-      const specificElement = specificTagCollection[0];
+    if(this.childrenListeners?.length) {
+      Object.keys(this.childrenListeners).forEach((tagName) => {
+        console.log(this);
+        const specificTagCollection = this._element.getElementsByTagName(tagName);
+        const specificElement = specificTagCollection[0];
 
-      Object.entries(this.childrenListeners[tagName]).forEach(([eventName, eventCallback]) => {
-        specificElement.removeEventListener(eventName, eventCallback);
+        Object.entries(this.childrenListeners[tagName]).forEach(([eventName, eventCallback]) => {
+          specificElement.removeEventListener(eventName, eventCallback);
+        });
       });
-    });
-
+    }
     this.listeners = {};
     this.childrenListeners = {};
   }
 
-  render(): string {
-    return "";
-  }
-
-  getContent() {
-    return this.element;
-  }
-
-  private _makePropsProxy(props: BlockProps) {
-    const propsProxy = new Proxy(props, {
+  private makePropsProxy(props: BlockProps) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return new Proxy(props as unknown as any, {
       get: (target, prop: string) => {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(this) : value;
+        return typeof value === 'function' ? value.bind(this) : value;
       },
       set: (target, prop: string, value) => {
-        if (prop.indexOf("_") === 0) {
-          throw new Error("Нет прав");
+        if (prop.indexOf('_') === 0) {
+          throw new Error('Нет прав');
         }
         target[prop] = value;
 
         return true;
       },
       deleteProperty: () => {
-        throw new Error("Нет доступа");
+        throw new Error('Нет доступа');
       },
     });
-
-    return propsProxy;
   }
 
-  private _createDocumentElement(tagName: string, classNames: string[]) {
-    const elem = document.createElement(tagName);
-    classNames.forEach((className) => {
-      elem.classList.add(className);
-    });
-    return elem;
+  private registerBlockEvents(eventBus: EventBus) {
+    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  show() {
-    if (this._element) {
-      this._element.style.display = "block";
-    }
+  private _componentDidMount() {
+    this.componentDidMount(this.props);
+    this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  hide() {
-    if (this._element) {
-      this._element.style.display = "none";
+  private _componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): void {
+    const shouldBeUpdated = this.componentDidUpdate(oldProps, newProps);
+    if (shouldBeUpdated) {
+      this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 }

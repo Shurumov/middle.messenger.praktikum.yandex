@@ -14,6 +14,12 @@ PR первого спринта https://github.com/Shurumov/middle.messenger.pr
 
 PR второго спринта https://github.com/Shurumov/middle.messenger.praktikum.yandex/pull/4
 
+PR третьего спринта https://github.com/Shurumov/middle.messenger.praktikum.yandex/pull/5
+
+- Добавлена работа с роутером, роутами
+- Добавлена работа с авторизацией и редактированеим профиля
+- Добавлена работа с чатами (создание, добавление и удаление пользователей)
+- Добавлены сокеты для работы с сообщениями в реальном времени
 
 сборка проекта `npm run build`
 

@@ -19,6 +19,10 @@
     background-color: #000000;
     opacity: 0.5;
     cursor: pointer;
+
+    input {
+      display: none;
+    }
   }
 
   &__image {
@@ -39,6 +43,10 @@
         align-items: center;
         justify-content: center;
       }
+    }
+
+    img {
+      width: 100%;
     }
   }
 
@@ -70,9 +78,8 @@
     }
 
     &_exit {
-      a {
-        color: $red;
-      }
+      cursor: pointer;
+      color: $red;
     }
   }
 }

@@ -1,0 +1,19 @@
+.users-list {
+  top: 55px;
+  bottom: 57px;
+  padding: 0 12px;
+  position: absolute;
+  right: 0;
+  width: 200px;
+  background-color: #FBFBFB;
+  z-index: 1;
+
+  &__search {
+    margin-top: 10px;
+  }
+
+  &__submit {
+    display: none;
+  }
+}
+
