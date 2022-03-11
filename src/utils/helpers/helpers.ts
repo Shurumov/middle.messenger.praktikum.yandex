@@ -1,4 +1,3 @@
-import { registerHelper } from 'handlebars';
 import { get } from './get';
 import { isEqual } from './is-equal';
 import { isObjectLike } from './is-object-like';
@@ -16,13 +15,14 @@ import { merge } from './merge';
 import { queryStringify } from './query-stringify';
 import { cloneDeep } from './clone-deep';
 
-registerHelper('numToTime', (num: number) => {
+const numToTime = (num?: string) => {
   if (typeof num === 'undefined') {
     return '';
   }
   const date = new Date(num);
   return `${date.getHours()}:${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}`;
-});
+
+}
 
 export const helpers = {
   get,
@@ -41,4 +41,5 @@ export const helpers = {
   merge,
   queryStringify,
   cloneDeep,
+  numToTime
 };

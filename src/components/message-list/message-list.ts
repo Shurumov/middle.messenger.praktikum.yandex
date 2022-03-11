@@ -4,20 +4,23 @@ import { template } from './message-list.templ';
 import { StoreFields, storeManager } from '/src/utils/store-manager';
 import { Message } from '/src/services/api/chat-api/message.model';
 import { User } from '/src/services/api/users-api';
+import { helpers } from '/src/utils/helpers';
 
 export class MessageList extends Block {
-  currentUser?: User
+  currentUser?: User;
+
   constructor() {
     super({ messages: [] }, 'div', ['chat__messages']);
 
-    storeManager.subscribe(StoreFields.user, (user) =>{
-      this.currentUser = user
-    })
+    storeManager.subscribe(StoreFields.user, (user) => {
+      this.currentUser = user;
+    });
 
     storeManager.subscribe(StoreFields.messages, (messages: Message[]) => {
       this.setProps({
         messages: messages.map(item => ({
           ...item,
+          time: helpers.numToTime(item.time),
           isOwn: item.user_id === this.currentUser?.id,
         }))
       });

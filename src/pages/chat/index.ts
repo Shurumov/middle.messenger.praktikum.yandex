@@ -15,6 +15,7 @@ import { BaseMessage, Message } from '/src/services/api/chat-api/message.model';
 import { MessageList } from '/src/components/message-list/message-list';
 import { authService } from '/src/services';
 import { handleSubmit } from '/src/utils/validation/form-validation';
+import { helpers } from '/src/utils/helpers';
 
 export class ChatPage extends Block {
   activeSocket: WebSocket;
@@ -80,9 +81,12 @@ export class ChatPage extends Block {
       },
     }, 'div', ['chat-page']);
 
-    storeManager.subscribe(StoreFields.chats, (chats) => {
-      const chatListItems = {};
+    storeManager.subscribe(StoreFields.chats, (chats: Chat[]) => {
+      const chatListItems: Record<string, Block> = {};
       chats.forEach((chat, index) => {
+        if(chat?.last_message?.time) {
+          chat.last_message.time = helpers.numToTime(chat?.last_message?.time);
+        }
         chatListItems[`ChatListItem${index}`] = new ChatListItem({
           ...chat,
           events: {
@@ -104,7 +108,7 @@ export class ChatPage extends Block {
           ...this.props.children,
           ...chatListItems
         },
-        chats: chats.map((chat, index) => `ChatListItem${index}`)
+        chats: chats.map((_chat: Chat, index:number) => `ChatListItem${index}`)
       });
     });
 

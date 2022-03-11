@@ -25,7 +25,6 @@ export interface Route {
   props?: Record<string, any>
 }
 
-
 export const routes:Route[] = [
   {
     path: RoutePath.Chat,

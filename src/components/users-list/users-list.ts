@@ -14,11 +14,11 @@ import { chatsService } from '/src/services/chats.service';
 import { usersService } from '/src/services/users.service';
 
 export class UsersList extends Block {
-  static getUsersItems(users) {
+  static getUsersItems(users: User[]) {
     const chatUsers = storeManager.get(StoreFields.usersInChat);
 
-    const children = {};
-    users?.forEach((user, index) => {
+    const children: Record<string, Block> = {};
+    users?.forEach((user: User, index: number) => {
       const actionType =
         chatUsers &&
         Array.isArray(chatUsers) &&
@@ -50,7 +50,7 @@ export class UsersList extends Block {
         placeholder: 'Поиск пользователей',
         classNames: ['users-list__search'],
         events: {
-          input: (event) => {
+          input: (event: any) => {
             if (!event.target.value) {
               storeManager.set(StoreFields.showUsersInChat, true);
             } else {
@@ -77,7 +77,7 @@ export class UsersList extends Block {
     storeManager.subscribe(StoreFields.searchUsers, (users) => {
       this.setProps({
         children: {
-          SearchUsers: this.props.children.SearchUsers,
+          SearchUsers: this.props?.children?.SearchUsers as Block,
           ...UsersList.getUsersItems(users)
         }
       });
@@ -88,10 +88,10 @@ export class UsersList extends Block {
       this.setProps({
         events: this.props.events,
         children: {
-          SearchUsers: this.props.children.SearchUsers,
+          SearchUsers: this.props.children?.SearchUsers as Block,
           ...children
         },
-        users: users.map((user, index) => `UserItem${index}`),
+        users: users.map((_user: User, index: number) => `UserItem${index}`),
       });
     });
 
@@ -99,7 +99,7 @@ export class UsersList extends Block {
       if (showUserInChat) {
         this.setProps({
           children: {
-            SearchUsers: this.props.children.SearchUsers,
+            SearchUsers: this.props.children?.SearchUsers as Block,
             ...UsersList.getUsersItems(storeManager.get(StoreFields.usersInChat))
           },
         });

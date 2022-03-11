@@ -114,11 +114,13 @@ export default abstract class Block<BlockProps extends Props = Props> {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((key) => {
-      if (typeof events[key] === 'function') {
+      if (typeof events[key] === "function") {
         const eventName = key;
         const eventCallback = events[key];
 
+        // @ts-ignore
         this._element.addEventListener(eventName, eventCallback.bind(this));
+        // @ts-ignore
         this.listeners[eventName] = eventCallback;
       }
     });
@@ -143,7 +145,7 @@ export default abstract class Block<BlockProps extends Props = Props> {
     const { events = {} } = this.props;
     Object.keys(events).forEach((tagName) => {
       if (typeof events[tagName] !== 'function') {
-        const specificElementEvents = events[tagName];
+        const specificElementEvents: any = events[tagName];
         const specificTagCollection = this._element.querySelectorAll(tagName);
 
         if (specificTagCollection.length > 0) {

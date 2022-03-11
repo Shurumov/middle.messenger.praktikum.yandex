@@ -35,7 +35,7 @@ describe("StoreManager", () => {
   it("should unsubscribe correctly", () => {
     const store = new StoreManager();
 
-    const callback = (value) => {
+    const callback = (value: any) => {
       console.log(value);
     };
 

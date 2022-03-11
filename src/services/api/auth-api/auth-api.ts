@@ -1,4 +1,4 @@
-import { SignupOptions, User } from './user.model';
+import { User, SignupOptions } from '/src/services/api/users-api';
 import { fetcher } from '/src/services/fetcher';
 
 class AuthApi {
