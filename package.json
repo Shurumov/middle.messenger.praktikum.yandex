@@ -7,7 +7,8 @@
     "start": "webpack-dev-server",
     "serve": "npm run build && node ./server.js",
     "eslint": "node_modules/.bin/eslint .",
-    "stylelint": "npx stylelint **/*.scss"
+    "stylelint": "npx stylelint **/*.scss",
+    "clean:dist": "sudo rimraf ./dist"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "css-loader": "^6.7.1",
     "express": "^4.17.2",
     "handlebars": "^4.7.7",
+    "heroku": "^7.59.4",
     "html-webpack-plugin": "5.5.0",
     "husky": "^7.0.4",
     "node-sass": "^7.0.1",
