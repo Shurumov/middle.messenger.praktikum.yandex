@@ -10,6 +10,14 @@
     "stylelint": "npx stylelint **/*.scss",
     "clean:dist": "sudo rimraf ./dist"
   },
+  "husky": {
+    "hooks": {
+      "applypatch-msg": "echo \"[Husky] applypatch-msg\"",
+      "pre-applypatch": "echo \"[Husky] pre-applypatch\"",
+      "post-applypatch": "echo \"[Husky] post-applypatch\"",
+      "pre-commit": "echo \"[Husky] pre-commit\""
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shurumov/messenger.git"
@@ -22,22 +30,22 @@
   },
   "homepage": "https://github.com/Shurumov/messenger#readme",
   "dependencies": {
-    "@parcel/config-default": "^2.2.0",
-    "@parcel/transformer-sass": "^2.2.0",
-    "css-loader": "^6.7.1",
-    "express": "^4.17.2",
-    "handlebars": "^4.7.7",
-    "heroku": "^7.59.4",
+    "@parcel/config-default": "2.2.0",
+    "@parcel/transformer-sass": "2.2.0",
+    "css-loader": "6.7.1",
+    "express": "4.17.2",
+    "handlebars": "4.7.7",
+    "heroku": "7.59.4",
     "html-webpack-plugin": "5.5.0",
-    "husky": "^7.0.4",
-    "node-sass": "^7.0.1",
-    "parcel": "^2.2.0",
-    "parcel-plugin-handlebars": "^0.4.4",
-    "sass-loader": "^12.6.0",
-    "style-loader": "^3.3.1",
-    "ts-loader": "^9.2.7",
-    "uuid": "^8.3.2",
-    "webpack-dev-server": "^4.7.4"
+    "husky": "7.0.4",
+    "node-sass": "7.0.1",
+    "parcel": "2.2.0",
+    "parcel-plugin-handlebars": "0.4.4",
+    "sass-loader": "12.6.0",
+    "style-loader": "3.3.1",
+    "ts-loader": "9.2.7",
+    "uuid": "8.3.2",
+    "webpack-dev-server": "4.7.4"
   },
   "engines": {
     "node-version": ">=12.x"
@@ -56,6 +64,6 @@
     "stylelint-config-standard": "24.0.0",
     "stylelint-scss": "4.1.0",
     "typescript": "4.5.5",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "4.9.2"
   }
 }
