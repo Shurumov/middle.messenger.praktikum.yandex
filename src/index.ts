@@ -32,11 +32,11 @@ export const routes:Route[] = [
     component: ChatPage
   },
   {
-    path: RoutePath.SignIn,
-    component: SignInPage
+    path: RoutePath.INDEX,
+    component: ChatPage
   },
   {
-    path: RoutePath.INDEX,
+    path: RoutePath.SignIn,
     component: SignInPage
   },
   {

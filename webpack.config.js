@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'messenger.bundle.js',
-    publicPath: '/',
+    clean: true,
   },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
@@ -34,7 +34,7 @@ module.exports = {
         proxyReq.setHeader('Host', 'my-custom-host');
       },
     }],
-    server: 'https',
+    server: 'http',
   },
   module: {
     rules: [{
