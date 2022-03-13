@@ -1,7 +1,7 @@
 FROM node:14-alpine
-WORKDIR /app 
+WORKDIR /app
 COPY package.json ./package.json
-RUN npm install 
+RUN npm install
 EXPOSE 3000
 COPY . .
 CMD node server.js

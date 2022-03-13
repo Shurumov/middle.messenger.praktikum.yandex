@@ -4,6 +4,8 @@
 
 [Netlify](https://cocky-payne-6f46ac.netlify.app)
 
+[Heroku](https://sas-messenger.herokuapp.com/)
+
 PR первого спринта https://github.com/Shurumov/middle.messenger.praktikum.yandex/pull/3
 
 - Добавлены линтеры, шаблоны заменены на ts, добавлен базовый компонент Block, и функция для рендера
