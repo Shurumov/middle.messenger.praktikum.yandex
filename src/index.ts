@@ -9,6 +9,7 @@ import { ChatPage } from '/src/pages/chat';
 import { ProfilePage } from '/src/pages/profile';
 
 export enum RoutePath {
+  INDEX = '/index.html',
   Chat = "/",
   SignIn = "/sign-in",
   SignUp = "/sign-up",
@@ -32,6 +33,10 @@ export const routes:Route[] = [
   },
   {
     path: RoutePath.SignIn,
+    component: SignInPage
+  },
+  {
+    path: RoutePath.INDEX,
     component: SignInPage
   },
   {

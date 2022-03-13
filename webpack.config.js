@@ -34,7 +34,7 @@ module.exports = {
         proxyReq.setHeader('Host', 'my-custom-host');
       },
     }],
-    https: true,
+    server: 'https',
   },
   module: {
     rules: [{
