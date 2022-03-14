@@ -50,8 +50,10 @@ export class UsersList extends Block {
         placeholder: 'Поиск пользователей',
         classNames: ['users-list__search'],
         events: {
-          input: (event: any) => {
-            if (!event.target.value) {
+          input: (event: Event & {
+            target: HTMLInputElement
+          }) => {
+            if (!event?.target?.value) {
               storeManager.set(StoreFields.showUsersInChat, true);
             } else {
               storeManager.set(StoreFields.showUsersInChat, false);
