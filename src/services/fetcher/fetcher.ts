@@ -98,6 +98,7 @@ export class Fetcher {
           prepareXhr();
           sendXhr();
         } else {
+          alert('Connection error')
           throw new Error(err.type);
         }
       };

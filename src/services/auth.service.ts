@@ -26,7 +26,9 @@ class AuthService {
       .catch((err) => {
         if (err.message === ERROR_REASONS.UserLogged) {
           router.go(RoutePath.Chat);
+          return
         }
+        alert(err?.message)
       });
   }
 
