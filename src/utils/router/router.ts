@@ -1,4 +1,5 @@
 import { Route } from "./route";
+import { RoutePath } from '/src';
 
 export const ROOT_QUERY = "#root";
 
@@ -36,7 +37,6 @@ export class Router {
 
   onRoute(pathname: string): void {
     const route = this.getRoute(pathname);
-
     if (!route) {
       return;
     }
@@ -62,8 +62,9 @@ export class Router {
     this.history.forward();
   }
 
-  getRoute(pathname: string): Route | null {
-    return this.routes.find((route) => route.match(pathname)) || null;
+  getRoute(pathname: string): Route | undefined {
+    const errorPage = this.routes.find((route) => route.match(RoutePath.ClientError))
+    return this.routes.find((route) => route.match(pathname)) || errorPage;
   }
 }
 
