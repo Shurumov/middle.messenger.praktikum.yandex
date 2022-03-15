@@ -1,5 +1,5 @@
 import { Message } from "./message.model";
-import { User } from '/src/services/api/auth-api/user.model';
+import { User } from '/src/services/api/users-api';
 import { fetcher } from '/src/services/fetcher';
 
 export interface Chat {

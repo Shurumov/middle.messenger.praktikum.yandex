@@ -23,7 +23,7 @@ export default abstract class Block<BlockProps extends Props = Props> {
   _element: HTMLElement;
   _meta: Meta<BlockProps>;
 
-  listeners: CustomElementEvents = {};
+  listeners: CustomElementEvents | Record<string, CustomElementEvents> = {};
 
   get element(): HTMLElement {
     return this._element;
@@ -113,13 +113,13 @@ export default abstract class Block<BlockProps extends Props = Props> {
   private addElementEvents(): void {
     const { events = {} } = this.props;
 
-    Object.keys(events).forEach((key) => {
-      if (typeof events[key] === 'function') {
+    Object.keys(events).forEach((key: string) => {
+      if (typeof events[key] === "function") {
         const eventName = key;
-        const eventCallback = events[key];
+        const eventCallback = events[key] as Function;
 
         this._element.addEventListener(eventName, eventCallback.bind(this));
-        this.listeners[eventName] = eventCallback;
+        this.listeners[eventName] = events[key];
       }
     });
   }
@@ -143,7 +143,7 @@ export default abstract class Block<BlockProps extends Props = Props> {
     const { events = {} } = this.props;
     Object.keys(events).forEach((tagName) => {
       if (typeof events[tagName] !== 'function') {
-        const specificElementEvents = events[tagName];
+        const specificElementEvents: any = events[tagName];
         const specificTagCollection = this._element.querySelectorAll(tagName);
 
         if (specificTagCollection.length > 0) {

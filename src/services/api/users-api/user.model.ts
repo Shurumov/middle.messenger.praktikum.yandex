@@ -1,4 +1,4 @@
-export interface UserBase {
+export interface UserBase extends Record<string, any>{
   first_name: string;
   second_name: string;
   login: string;

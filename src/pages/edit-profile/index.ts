@@ -15,8 +15,8 @@ import './styles.scss';
 import '/src/styles/default.scss';
 import '/src/styles/container.scss';
 
-
 export class EditProfilePage extends Block {
+  props: Record<string, any>
   constructor() {
     authService.getUser();
     const children = EditProfilePage.getChildren();
@@ -61,7 +61,7 @@ export class EditProfilePage extends Block {
     });
   }
 
-  static getChildren(): Record<string, any> {
+  static getChildren(): Record<string, FormField> {
     return {
       EmailInput: new FormField({
         label: 'Почта',
